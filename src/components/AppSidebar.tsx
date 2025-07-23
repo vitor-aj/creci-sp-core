@@ -100,13 +100,13 @@ export function AppSidebar() {
   const isActive = (path: string) => currentPath === path;
   const getNavClass = ({ isActive }: { isActive: boolean }) =>
     isActive 
-      ? "bg-gradient-to-r from-accent/20 to-accent/10 text-accent font-medium border-l-3 border-accent shadow-sm" 
-      : "hover:bg-gradient-to-r hover:from-muted/60 hover:to-muted/30 hover:shadow-sm text-muted-foreground hover:text-foreground hover:border-l-2 hover:border-accent/30 transition-all duration-200";
+      ? "bg-primary/90 text-primary-foreground font-medium shadow-sm" 
+      : "hover:bg-muted/80 text-muted-foreground hover:text-foreground transition-all duration-200";
 
   return (
     <Sidebar className={isCollapsed ? "w-16" : "w-64"} collapsible="icon">
       {/* Header */}
-      <SidebarHeader className="border-b border-border h-16 flex items-center px-4">
+      <SidebarHeader className="border-b border-border h-16 flex items-center justify-center px-4">
         <div className="flex items-center space-x-3">
           <img 
             src={logoImage} 
@@ -170,10 +170,10 @@ export function AppSidebar() {
       </SidebarContent>
 
       {/* Footer */}
-      <SidebarFooter className="border-t border-border p-4">
+      <SidebarFooter className="border-t border-border p-4 flex items-center justify-center">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="w-full justify-start">
+            <Button variant="ghost" className="w-full justify-center">
               <Avatar className="h-6 w-6">
                 <AvatarFallback className="text-xs bg-accent text-accent-foreground">
                   JS
