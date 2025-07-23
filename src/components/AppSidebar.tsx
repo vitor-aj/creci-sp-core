@@ -114,9 +114,9 @@ export function AppSidebar() {
             className={`object-contain ${isCollapsed ? 'w-10 h-10' : 'w-8 h-8'}`}
           />
           {!isCollapsed && (
-            <div>
-              <h2 className="font-bold text-primary">CRECI SP</h2>
-              <p className="text-xs text-muted-foreground">Sistema Institucional</p>
+            <div className="flex-1 min-w-0">
+              <h2 className="font-bold text-primary truncate">CRECI SP</h2>
+              <p className="text-xs text-muted-foreground truncate">Sistema Institucional</p>
             </div>
           )}
         </div>
