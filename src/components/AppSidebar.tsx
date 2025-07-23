@@ -106,7 +106,7 @@ export function AppSidebar() {
   return (
     <Sidebar className={isCollapsed ? "w-16" : "w-64"} collapsible="icon">
       {/* Header */}
-      <SidebarHeader className="border-b border-border h-12 flex items-center justify-center px-2">
+      <SidebarHeader className="border-b border-border h-16 flex items-center justify-center px-2">
         <div className="flex items-center space-x-3">
           <img 
             src={logoImage} 
