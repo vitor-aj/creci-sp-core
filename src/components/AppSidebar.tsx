@@ -125,7 +125,7 @@ export function AppSidebar() {
       <SidebarContent>
         {/* Navigation */}
         <SidebarGroup className="space-y-1">
-          <SidebarGroupLabel className="text-xs font-poppins font-medium text-muted-foreground/70 uppercase tracking-wider">Navegação</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-xs font-poppins font-medium text-muted-foreground/70 uppercase tracking-wider py-2 px-1.5">Navegação</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu className="space-y-0.5">
               {navigationItems.map((item) => (
@@ -144,7 +144,7 @@ export function AppSidebar() {
 
         {/* Management */}
         <SidebarGroup className="space-y-1">
-          <SidebarGroupLabel className="text-xs font-poppins font-medium text-muted-foreground/70 uppercase tracking-wider">Gerenciamento</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-xs font-poppins font-medium text-muted-foreground/70 uppercase tracking-wider py-2 px-1.5">Gerenciamento</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu className="space-y-0.5">
               {managementItems.map((item) => (
