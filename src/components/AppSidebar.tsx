@@ -124,10 +124,10 @@ export function AppSidebar() {
 
       <SidebarContent>
         {/* Navigation */}
-        <SidebarGroup className="space-y-3">
+        <SidebarGroup className="space-y-1">
           <SidebarGroupLabel className="text-xs font-poppins font-medium text-muted-foreground/70 uppercase tracking-wider">Navegação</SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu>
+            <SidebarMenu className="space-y-0.5">
               {navigationItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
@@ -143,10 +143,10 @@ export function AppSidebar() {
         </SidebarGroup>
 
         {/* Management */}
-        <SidebarGroup className="space-y-3">
+        <SidebarGroup className="space-y-1">
           <SidebarGroupLabel className="text-xs font-poppins font-medium text-muted-foreground/70 uppercase tracking-wider">Gerenciamento</SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu>
+            <SidebarMenu className="space-y-0.5">
               {managementItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
