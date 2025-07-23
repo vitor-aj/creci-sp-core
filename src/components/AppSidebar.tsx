@@ -101,7 +101,7 @@ export function AppSidebar() {
   const getNavClass = ({ isActive }: { isActive: boolean }) =>
     isActive 
       ? "bg-primary/90 text-primary-foreground font-medium shadow-sm" 
-      : "hover:bg-muted/80 text-muted-foreground hover:text-foreground transition-all duration-200";
+      : "hover:bg-muted/80 text-foreground/70 hover:text-foreground transition-all duration-200";
 
   return (
     <Sidebar className={isCollapsed ? "w-16" : "w-64"} collapsible="icon">
@@ -124,7 +124,7 @@ export function AppSidebar() {
 
       <SidebarContent>
         {/* Navigation */}
-        <SidebarGroup>
+        <SidebarGroup className="space-y-3">
           <SidebarGroupLabel className="text-xs font-poppins font-medium text-muted-foreground/70 uppercase tracking-wider">Navegação</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
@@ -143,7 +143,7 @@ export function AppSidebar() {
         </SidebarGroup>
 
         {/* Management */}
-        <SidebarGroup>
+        <SidebarGroup className="space-y-3">
           <SidebarGroupLabel className="text-xs font-poppins font-medium text-muted-foreground/70 uppercase tracking-wider">Gerenciamento</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
