@@ -163,7 +163,7 @@ export function AppSidebar() {
       </SidebarContent>
 
       {/* Footer */}
-      <SidebarFooter className="border-t border-border p-4 flex items-center justify-center">
+      <SidebarFooter className="border-t border-border p-1.5 flex items-center justify-center">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="w-full justify-center group hover:bg-muted/50">
