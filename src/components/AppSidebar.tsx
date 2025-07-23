@@ -173,8 +173,8 @@ export function AppSidebar() {
       <SidebarFooter className="border-t border-border p-4 flex items-center justify-center">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="w-full justify-center">
-              <Avatar className="h-6 w-6">
+            <Button variant="ghost" className="w-full justify-center group">
+              <Avatar className="h-6 w-6 group-hover:ring-2 group-hover:ring-primary/30 transition-all duration-200">
                 <AvatarFallback className="text-xs bg-accent text-accent-foreground">
                   JS
                 </AvatarFallback>
@@ -183,7 +183,7 @@ export function AppSidebar() {
                 <>
                   <div className="flex-1 text-left ml-2">
                     <div className="text-sm font-medium">João Silva</div>
-                    <div className="text-xs text-muted-foreground">Administrador</div>
+                    <div className="text-xs text-muted-foreground group-hover:text-primary transition-colors duration-200">Administrador</div>
                   </div>
                   <ChevronDown className="h-4 w-4" />
                 </>
