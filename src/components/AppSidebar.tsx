@@ -111,7 +111,7 @@ export function AppSidebar() {
           <img 
             src={logoImage} 
             alt="CRECI SP" 
-            className="w-8 h-8 object-contain"
+            className={`object-contain ${isCollapsed ? 'w-10 h-10' : 'w-8 h-8'}`}
           />
           {!isCollapsed && (
             <div>
