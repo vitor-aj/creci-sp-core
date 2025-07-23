@@ -166,8 +166,8 @@ export function AppSidebar() {
       <SidebarFooter className="border-t border-border p-4 flex items-center justify-center">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="w-full justify-center group">
-              <Avatar className="h-6 w-6 group-hover:ring-2 group-hover:ring-primary/30 transition-all duration-200">
+            <Button variant="ghost" className="w-full justify-center group hover:bg-muted/50">
+              <Avatar className="h-6 w-6 ring-2 ring-primary/30 transition-all duration-200">
                 <AvatarFallback className="text-xs bg-accent text-accent-foreground">
                   JS
                 </AvatarFallback>
