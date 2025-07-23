@@ -104,9 +104,9 @@ export function AppSidebar() {
       : "hover:bg-muted/80 text-foreground/70 hover:text-foreground transition-all duration-200";
 
   return (
-    <Sidebar className={`${isCollapsed ? "w-16" : "w-56"} transition-all duration-300 ease-in-out`} collapsible="icon">
+    <Sidebar className={`${isCollapsed ? "w-16" : "w-52"} transition-all duration-300 ease-in-out`} collapsible="icon">
       {/* Header */}
-      <SidebarHeader className={`border-b border-border flex items-center justify-center px-2 ${isCollapsed ? 'h-16' : 'h-14'}`}>
+      <SidebarHeader className={`border-b border-border flex items-center justify-center px-2 ${isCollapsed ? 'h-14' : 'h-14'}`}>
         <div className="flex items-center space-x-3">
           <img 
             src={logoImage} 
