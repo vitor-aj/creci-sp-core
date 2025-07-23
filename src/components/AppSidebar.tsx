@@ -100,13 +100,13 @@ export function AppSidebar() {
   const isActive = (path: string) => currentPath === path;
   const getNavClass = ({ isActive }: { isActive: boolean }) =>
     isActive 
-      ? "bg-accent/10 text-accent font-medium border-r-2 border-accent" 
-      : "hover:bg-muted/50 text-muted-foreground hover:text-foreground";
+      ? "bg-gradient-to-r from-accent/20 to-accent/10 text-accent font-medium border-l-3 border-accent shadow-sm" 
+      : "hover:bg-gradient-to-r hover:from-muted/60 hover:to-muted/30 hover:shadow-sm text-muted-foreground hover:text-foreground hover:border-l-2 hover:border-accent/30 transition-all duration-200";
 
   return (
     <Sidebar className={isCollapsed ? "w-16" : "w-64"} collapsible="icon">
       {/* Header */}
-      <SidebarHeader className="border-b border-border p-4">
+      <SidebarHeader className="border-b border-border h-16 flex items-center px-4">
         <div className="flex items-center space-x-3">
           <img 
             src={logoImage} 
@@ -125,7 +125,7 @@ export function AppSidebar() {
       <SidebarContent>
         {/* Navigation */}
         <SidebarGroup>
-          <SidebarGroupLabel>Navegação</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-xs font-poppins font-medium text-muted-foreground/70 uppercase tracking-wider">Navegação</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {navigationItems.map((item) => (
@@ -144,7 +144,7 @@ export function AppSidebar() {
 
         {/* Management */}
         <SidebarGroup>
-          <SidebarGroupLabel>Gerenciamento</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-xs font-poppins font-medium text-muted-foreground/70 uppercase tracking-wider">Gerenciamento</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {managementItems.map((item) => (
@@ -155,7 +155,7 @@ export function AppSidebar() {
                       {!isCollapsed && (
                         <div className="flex-1">
                           <div className="font-medium">{item.title}</div>
-                          <div className="text-xs text-muted-foreground">
+                          <div className="text-xs font-poppins text-muted-foreground/80 font-light">
                             {item.description}
                           </div>
                         </div>

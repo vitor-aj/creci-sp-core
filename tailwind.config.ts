@@ -96,6 +96,13 @@ export default {
 			transitionTimingFunction: {
 				'smooth': 'cubic-bezier(0.4, 0, 0.2, 1)',
 			},
+			fontFamily: {
+				sans: ["Inter", "sans-serif"],
+				poppins: ["Poppins", "sans-serif"],
+			},
+			borderWidth: {
+				'3': '3px',
+			},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
