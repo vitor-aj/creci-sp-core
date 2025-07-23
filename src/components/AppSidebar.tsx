@@ -152,14 +152,7 @@ export function AppSidebar() {
                   <SidebarMenuButton asChild>
                     <NavLink to={item.url} className={`py-3 px-2 ${getNavClass}`}>
                       <item.icon className="h-4 w-4" />
-                      {!isCollapsed && (
-                        <div className="flex-1">
-                          <div className="font-medium">{item.title}</div>
-                          <div className="text-xs font-poppins text-muted-foreground/80 font-light">
-                            {item.description}
-                          </div>
-                        </div>
-                      )}
+                      {!isCollapsed && <span>{item.title}</span>}
                     </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
