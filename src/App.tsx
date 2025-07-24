@@ -19,6 +19,7 @@ import { Establishments } from "./pages/Establishments";
 import { Modules } from "./pages/Modules";
 import { Systems } from "./pages/Systems";
 import { EmailTemplates } from "./pages/EmailTemplates";
+import { Profile } from "./pages/Profile";
 import { Layout } from "./components/Layout";
 
 const queryClient = new QueryClient();
@@ -74,6 +75,11 @@ const App = () => (
           <Route path="/templates" element={
             <Layout>
               <EmailTemplates />
+            </Layout>
+          } />
+          <Route path="/perfil" element={
+            <Layout>
+              <Profile />
             </Layout>
           } />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
