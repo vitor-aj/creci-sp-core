@@ -63,7 +63,7 @@ export function Profile() {
         )}
       </div>
 
-      <div className="grid gap-6 md:grid-cols-3">
+      <div className="flex flex-col gap-6">
         {/* Avatar Section */}
         <Card>
           <CardHeader>
