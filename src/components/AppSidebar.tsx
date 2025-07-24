@@ -130,15 +130,13 @@ export function AppSidebar() {
             <SidebarMenu className="space-y-0.5">
               {navigationItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <NavLink 
-                      to={item.url} 
-                      className={({ isActive }) => `py-3 px-2 ${getNavClass({ isActive })}`}
-                    >
-                      <item.icon className="h-4 w-4" />
-                      {!isCollapsed && <span>{item.title}</span>}
-                    </NavLink>
-                  </SidebarMenuButton>
+                  <NavLink 
+                    to={item.url} 
+                    className={({ isActive }) => `flex items-center space-x-2 py-3 px-2 rounded-md transition-all duration-200 ${getNavClass({ isActive })}`}
+                  >
+                    <item.icon className="h-4 w-4" />
+                    {!isCollapsed && <span>{item.title}</span>}
+                  </NavLink>
                 </SidebarMenuItem>
               ))}
             </SidebarMenu>
@@ -152,15 +150,13 @@ export function AppSidebar() {
             <SidebarMenu className="space-y-0.5">
               {managementItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <NavLink 
-                      to={item.url} 
-                      className={({ isActive }) => `py-3 px-2 ${getNavClass({ isActive })}`}
-                    >
-                      <item.icon className="h-4 w-4" />
-                      {!isCollapsed && <span>{item.title}</span>}
-                    </NavLink>
-                  </SidebarMenuButton>
+                  <NavLink 
+                    to={item.url} 
+                    className={({ isActive }) => `flex items-center space-x-2 py-3 px-2 rounded-md transition-all duration-200 ${getNavClass({ isActive })}`}
+                  >
+                    <item.icon className="h-4 w-4" />
+                    {!isCollapsed && <span>{item.title}</span>}
+                  </NavLink>
                 </SidebarMenuItem>
               ))}
             </SidebarMenu>
