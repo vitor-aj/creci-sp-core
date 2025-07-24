@@ -100,7 +100,7 @@ export function AppSidebar() {
   const isActive = (path: string) => currentPath === path;
   const getNavClass = ({ isActive }: { isActive: boolean }) =>
     isActive 
-      ? "bg-primary text-primary-foreground font-semibold shadow-lg border-l-4 border-primary-foreground/30" 
+      ? "bg-primary text-primary-foreground font-semibold shadow-md" 
       : "bg-sidebar text-sidebar-foreground hover:bg-muted/80 hover:text-foreground transition-all duration-200";
 
   return (
