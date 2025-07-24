@@ -168,7 +168,7 @@ export function AppSidebar() {
       <SidebarFooter className="border-t border-border p-1.5 flex items-center justify-center">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="w-full justify-center group hover:bg-muted/50">
+            <Button variant="ghost" className="w-full justify-center group hover:bg-muted/50 hover:scale-105 transition-all duration-200">
               <Avatar className="h-6 w-6 ring-2 ring-primary/30 transition-all duration-200">
                 <AvatarFallback className="text-xs bg-accent text-accent-foreground">
                   JS
@@ -186,16 +186,22 @@ export function AppSidebar() {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-56">
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={() => window.location.href = '/perfil'}>
               <User className="h-4 w-4 mr-2" />
               Minha Conta
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={() => window.location.href = '/configuracoes'}>
               <Settings className="h-4 w-4 mr-2" />
               Configurações
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="text-destructive">
+            <DropdownMenuItem 
+              className="text-destructive"
+              onClick={() => {
+                localStorage.clear();
+                window.location.href = '/login';
+              }}
+            >
               <LogOut className="h-4 w-4 mr-2" />
               Sair
             </DropdownMenuItem>
