@@ -168,8 +168,8 @@ export function AppSidebar() {
       <SidebarFooter className="border-t border-border p-1.5 flex items-center justify-center">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="w-full justify-center group hover:bg-accent/50 transition-colors duration-200 focus:outline-none focus:ring-0">
-              <Avatar className="h-6 w-6 ring-2 ring-primary/30 transition-all duration-200">
+            <Button variant="ghost" className="w-full justify-center group hover:bg-sidebar-accent text-sidebar-foreground hover:text-sidebar-accent-foreground transition-colors duration-200 focus:outline-none focus:ring-0">
+              <Avatar className="h-6 w-6 ring-2 ring-muted-foreground/50 group-hover:ring-sidebar-accent-foreground/70 transition-all duration-200">
                 <AvatarFallback className="text-xs bg-accent text-accent-foreground">
                   JS
                 </AvatarFallback>
@@ -177,8 +177,8 @@ export function AppSidebar() {
               {!isCollapsed && (
                 <>
                   <div className="flex-1 text-left ml-2">
-                    <div className="text-sm font-medium">João Silva</div>
-                    <div className="text-xs text-muted-foreground group-hover:text-primary transition-colors duration-200">Administrador</div>
+                    <div className="text-sm font-medium text-foreground group-hover:text-sidebar-accent-foreground">João Silva</div>
+                    <div className="text-xs text-muted-foreground group-hover:text-sidebar-accent-foreground/80">Administrador</div>
                   </div>
                   <ChevronDown className="h-4 w-4" />
                 </>
