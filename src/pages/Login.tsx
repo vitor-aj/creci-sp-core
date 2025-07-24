@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -122,7 +123,7 @@ const Login = () => {
 
               <div className="flex items-center justify-between">
                 <a 
-                  href="/esqueci-senha"
+                  href="/forgot-password"
                   className="text-sm text-accent hover:text-accent/80 transition-colors"
                 >
                   Esqueci minha senha
