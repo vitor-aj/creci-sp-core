@@ -131,7 +131,10 @@ export function AppSidebar() {
               {navigationItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <NavLink to={item.url} className={`py-3 px-2 ${getNavClass}`}>
+                    <NavLink 
+                      to={item.url} 
+                      className={({ isActive }) => `py-3 px-2 ${getNavClass({ isActive })}`}
+                    >
                       <item.icon className="h-4 w-4" />
                       {!isCollapsed && <span>{item.title}</span>}
                     </NavLink>
@@ -150,7 +153,10 @@ export function AppSidebar() {
               {managementItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <NavLink to={item.url} className={`py-3 px-2 ${getNavClass}`}>
+                    <NavLink 
+                      to={item.url} 
+                      className={({ isActive }) => `py-3 px-2 ${getNavClass({ isActive })}`}
+                    >
                       <item.icon className="h-4 w-4" />
                       {!isCollapsed && <span>{item.title}</span>}
                     </NavLink>
