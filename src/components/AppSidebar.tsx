@@ -101,7 +101,7 @@ export function AppSidebar() {
   const getNavClass = ({ isActive }: { isActive: boolean }) =>
     isActive 
       ? "bg-primary/90 text-primary-foreground font-medium shadow-sm" 
-      : "bg-sidebar text-foreground hover:bg-muted/80 hover:text-foreground transition-all duration-200";
+      : "bg-sidebar text-primary-foreground hover:bg-muted/80 hover:text-foreground transition-all duration-200";
 
   return (
     <Sidebar className={`${isCollapsed ? "w-16" : "w-52"} transition-all duration-300 ease-in-out`} collapsible="icon">
