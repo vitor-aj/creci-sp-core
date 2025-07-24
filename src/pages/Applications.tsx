@@ -1,5 +1,9 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { Monitor, Plus, Settings, Globe } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
@@ -11,10 +15,40 @@ export function Applications() {
           <h1 className="text-3xl font-bold text-foreground">Aplicativos</h1>
           <p className="text-muted-foreground">Cadastre e gerencie aplicativos do sistema</p>
         </div>
-        <Button>
-          <Plus className="h-4 w-4 mr-2" />
-          Novo Aplicativo
-        </Button>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button>
+              <Plus className="h-4 w-4 mr-2" />
+              Novo Aplicativo
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Novo Aplicativo</DialogTitle>
+              <DialogDescription>
+                Cadastre um novo aplicativo no sistema
+              </DialogDescription>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <div className="grid gap-2">
+                <Label htmlFor="app-name">Nome do aplicativo</Label>
+                <Input id="app-name" placeholder="Digite o nome do aplicativo" />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="app-url">URL do aplicativo</Label>
+                <Input id="app-url" placeholder="https://exemplo.com" />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="app-description">Descrição</Label>
+                <Textarea id="app-description" placeholder="Descreva o aplicativo" />
+              </div>
+              <div className="flex justify-end gap-2 pt-4">
+                <Button variant="outline">Cancelar</Button>
+                <Button>Salvar</Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">

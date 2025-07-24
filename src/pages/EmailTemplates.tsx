@@ -1,5 +1,10 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import { Mail, Plus, Edit, Eye } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
@@ -11,10 +16,54 @@ export function EmailTemplates() {
           <h1 className="text-3xl font-bold text-foreground">Templates de E-mail</h1>
           <p className="text-muted-foreground">Gerencie modelos de e-mail do sistema</p>
         </div>
-        <Button>
-          <Plus className="h-4 w-4 mr-2" />
-          Novo Template
-        </Button>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button>
+              <Plus className="h-4 w-4 mr-2" />
+              Novo Template
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Novo Template de E-mail</DialogTitle>
+              <DialogDescription>
+                Crie um novo modelo de e-mail para o sistema
+              </DialogDescription>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <div className="grid gap-2">
+                <Label htmlFor="template-name">Nome do template</Label>
+                <Input id="template-name" placeholder="Digite o nome do template" />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="template-subject">Assunto</Label>
+                <Input id="template-subject" placeholder="Digite o assunto do e-mail" />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="template-type">Tipo</Label>
+                <Select>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecione o tipo" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="signup">Cadastro</SelectItem>
+                    <SelectItem value="security">Segurança</SelectItem>
+                    <SelectItem value="report">Relatório</SelectItem>
+                    <SelectItem value="system">Sistema</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="template-content">Conteúdo do e-mail</Label>
+                <Textarea id="template-content" placeholder="Digite o conteúdo do template" rows={4} />
+              </div>
+              <div className="flex justify-end gap-2 pt-4">
+                <Button variant="outline">Cancelar</Button>
+                <Button>Salvar</Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">

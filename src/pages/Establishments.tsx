@@ -1,5 +1,9 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Building, Plus, MapPin, Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
@@ -11,10 +15,49 @@ export function Establishments() {
           <h1 className="text-3xl font-bold text-foreground">Estabelecimentos</h1>
           <p className="text-muted-foreground">Gerencie locais e unidades</p>
         </div>
-        <Button>
-          <Plus className="h-4 w-4 mr-2" />
-          Novo Estabelecimento
-        </Button>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button>
+              <Plus className="h-4 w-4 mr-2" />
+              Novo Estabelecimento
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Novo Estabelecimento</DialogTitle>
+              <DialogDescription>
+                Cadastre um novo local ou unidade
+              </DialogDescription>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <div className="grid gap-2">
+                <Label htmlFor="est-name">Nome do estabelecimento</Label>
+                <Input id="est-name" placeholder="Digite o nome do estabelecimento" />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="est-address">Endereço</Label>
+                <Input id="est-address" placeholder="Digite o endereço completo" />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="est-type">Tipo</Label>
+                <Select>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecione o tipo" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="sede">Sede</SelectItem>
+                    <SelectItem value="regional">Regional</SelectItem>
+                    <SelectItem value="filial">Filial</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="flex justify-end gap-2 pt-4">
+                <Button variant="outline">Cancelar</Button>
+                <Button>Salvar</Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">

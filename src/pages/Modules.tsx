@@ -1,5 +1,9 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { Database, Plus, Code } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
@@ -12,10 +16,40 @@ export function Modules() {
           <h1 className="text-3xl font-bold text-foreground">Módulos</h1>
           <p className="text-muted-foreground">Funcionalidades e recursos do sistema</p>
         </div>
-        <Button>
-          <Plus className="h-4 w-4 mr-2" />
-          Novo Módulo
-        </Button>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button>
+              <Plus className="h-4 w-4 mr-2" />
+              Novo Módulo
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Novo Módulo</DialogTitle>
+              <DialogDescription>
+                Adicione uma nova funcionalidade ao sistema
+              </DialogDescription>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <div className="grid gap-2">
+                <Label htmlFor="module-name">Nome do módulo</Label>
+                <Input id="module-name" placeholder="Digite o nome do módulo" />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="module-version">Versão</Label>
+                <Input id="module-version" placeholder="ex: v1.0" />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="module-description">Descrição</Label>
+                <Textarea id="module-description" placeholder="Descreva a funcionalidade do módulo" />
+              </div>
+              <div className="flex justify-end gap-2 pt-4">
+                <Button variant="outline">Cancelar</Button>
+                <Button>Salvar</Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">

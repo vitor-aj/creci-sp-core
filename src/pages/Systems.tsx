@@ -1,5 +1,9 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Settings, Plus, Server, Activity } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
@@ -11,10 +15,50 @@ export function Systems() {
           <h1 className="text-3xl font-bold text-foreground">Sistemas</h1>
           <p className="text-muted-foreground">Configure ambientes e infraestrutura</p>
         </div>
-        <Button>
-          <Plus className="h-4 w-4 mr-2" />
-          Novo Sistema
-        </Button>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button>
+              <Plus className="h-4 w-4 mr-2" />
+              Novo Sistema
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Novo Sistema</DialogTitle>
+              <DialogDescription>
+                Configure um novo ambiente de sistema
+              </DialogDescription>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <div className="grid gap-2">
+                <Label htmlFor="system-name">Nome do sistema</Label>
+                <Input id="system-name" placeholder="Digite o nome do sistema" />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="system-env">Ambiente</Label>
+                <Select>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecione o ambiente" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="prod">Produção</SelectItem>
+                    <SelectItem value="hml">Homologação</SelectItem>
+                    <SelectItem value="dev">Desenvolvimento</SelectItem>
+                    <SelectItem value="test">Teste</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="system-url">URL do sistema</Label>
+                <Input id="system-url" placeholder="https://exemplo.com" />
+              </div>
+              <div className="flex justify-end gap-2 pt-4">
+                <Button variant="outline">Cancelar</Button>
+                <Button>Salvar</Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
