@@ -106,12 +106,12 @@ export function AppSidebar() {
   return (
     <Sidebar className={`${isCollapsed ? "w-16" : "w-52"} transition-all duration-300 ease-in-out`} collapsible="icon">
       {/* Header */}
-      <SidebarHeader className={`border-b border-border flex items-center justify-center px-2 h-14`}>
-        <div className="flex items-center space-x-3">
+      <SidebarHeader className="border-b border-border h-14 flex items-center px-3">
+        <div className="flex items-center space-x-3 w-full">
           <img 
             src={logoImage} 
             alt="CRECI SP" 
-            className="w-8 h-8 object-contain"
+            className="w-8 h-8 object-contain flex-shrink-0"
           />
           {!isCollapsed && (
             <div className="flex-1 min-w-0">
