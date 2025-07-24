@@ -1,0 +1,60 @@
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Database, Plus, Code } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Switch } from "@/components/ui/switch";
+
+export function Modules() {
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold text-foreground">Módulos</h1>
+          <p className="text-muted-foreground">Funcionalidades e recursos do sistema</p>
+        </div>
+        <Button>
+          <Plus className="h-4 w-4 mr-2" />
+          Novo Módulo
+        </Button>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {[
+          { name: "Gestão de Usuários", description: "Controle completo de usuários", version: "v2.1", active: true },
+          { name: "Relatórios", description: "Geração de relatórios automatizados", version: "v1.8", active: true },
+          { name: "Notificações", description: "Sistema de notificações push", version: "v1.2", active: false },
+          { name: "API Gateway", description: "Controle de acesso à API", version: "v3.0", active: true },
+          { name: "Auditoria", description: "Log de ações do sistema", version: "v1.5", active: true },
+          { name: "Backup", description: "Rotinas de backup automático", version: "v2.0", active: false },
+        ].map((module, index) => (
+          <Card key={index}>
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2">
+                <Database className="h-5 w-5 text-primary" />
+                <span>{module.name}</span>
+              </CardTitle>
+              <CardDescription>
+                {module.description}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <Badge variant="outline">
+                    {module.version}
+                  </Badge>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Switch checked={module.active} />
+                  <Button variant="outline" size="sm">
+                    <Code className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
+}
