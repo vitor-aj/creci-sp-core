@@ -15,9 +15,9 @@ export function Systems() {
           <h1 className="text-3xl font-bold text-foreground">Sistemas</h1>
           <p className="text-muted-foreground">Configure ambientes e infraestrutura</p>
         </div>
-        <Dialog>
+        <Dialog onOpenChange={(open) => console.log('Systems Dialog:', open)}>
           <DialogTrigger asChild>
-            <Button>
+            <Button onClick={() => console.log('Systems button clicked')}>
               <Plus className="h-4 w-4 mr-2" />
               Novo Sistema
             </Button>

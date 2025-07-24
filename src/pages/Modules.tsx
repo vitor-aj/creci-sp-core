@@ -16,9 +16,9 @@ export function Modules() {
           <h1 className="text-3xl font-bold text-foreground">Módulos</h1>
           <p className="text-muted-foreground">Funcionalidades e recursos do sistema</p>
         </div>
-        <Dialog>
+        <Dialog onOpenChange={(open) => console.log('Modules Dialog:', open)}>
           <DialogTrigger asChild>
-            <Button>
+            <Button onClick={() => console.log('Modules button clicked')}>
               <Plus className="h-4 w-4 mr-2" />
               Novo Módulo
             </Button>

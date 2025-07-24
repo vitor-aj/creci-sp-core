@@ -16,9 +16,9 @@ export function EmailTemplates() {
           <h1 className="text-3xl font-bold text-foreground">Templates de E-mail</h1>
           <p className="text-muted-foreground">Gerencie modelos de e-mail do sistema</p>
         </div>
-        <Dialog>
+        <Dialog onOpenChange={(open) => console.log('EmailTemplates Dialog:', open)}>
           <DialogTrigger asChild>
-            <Button>
+            <Button onClick={() => console.log('EmailTemplates button clicked')}>
               <Plus className="h-4 w-4 mr-2" />
               Novo Template
             </Button>
