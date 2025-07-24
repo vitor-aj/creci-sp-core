@@ -31,7 +31,7 @@ const Login = () => {
     // Simular login
     setTimeout(() => {
       setIsLoading(false);
-      window.location.href = "/dashboard";
+      window.location.href = "/select-establishment";
     }, 1500);
   };
 

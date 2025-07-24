@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
+import { SelectEstablishment } from "./pages/SelectEstablishment";
 import { Layout } from "./components/Layout";
 
 const queryClient = new QueryClient();
@@ -20,6 +21,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/select-establishment" element={<SelectEstablishment />} />
           <Route path="/dashboard" element={
             <Layout>
               <Dashboard />
