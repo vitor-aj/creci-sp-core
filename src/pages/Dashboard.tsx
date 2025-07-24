@@ -1,5 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 import { 
   Users, 
   Settings, 
@@ -14,6 +15,7 @@ import {
 } from "lucide-react";
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const stats = [
     { title: "Usuários Ativos", value: "234", icon: Users, color: "text-blue-600" },
     { title: "Aplicativos", value: "12", icon: Monitor, color: "text-green-600" },
@@ -90,6 +92,7 @@ const Dashboard = () => {
               <Card 
                 key={index} 
                 className="group cursor-pointer border-2 border-transparent hover:border-accent/20 hover:shadow-soft transition-all duration-300"
+                onClick={() => navigate(action.href)}
               >
                 <CardContent className="p-4">
                   <div className="flex items-start space-x-3">
