@@ -42,16 +42,7 @@ const Dashboard = () => {
             Bem-vindo ao sistema de gerenciamento CRECI SP
           </p>
         </div>
-        <div className="flex items-center space-x-3">
-          <Button variant="outline" size="sm">
-            <Bell className="h-4 w-4 mr-2" />
-            Notificações
-          </Button>
-          <Button variant="outline" size="sm">
-            <BarChart3 className="h-4 w-4 mr-2" />
-            Relatórios
-          </Button>
-        </div>
+        
       </div>
 
       {/* Stats Cards */}
