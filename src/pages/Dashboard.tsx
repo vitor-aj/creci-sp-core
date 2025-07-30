@@ -27,6 +27,9 @@ const Dashboard = () => {
   const [currentQuickAccessPage, setCurrentQuickAccessPage] = useState(0);
   const [isAddAppModalOpen, setIsAddAppModalOpen] = useState(false);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+  const [filterName, setFilterName] = useState("");
+  const [currentAllAppsPage, setCurrentAllAppsPage] = useState(0);
+  const [appsPerPageAll, setAppsPerPageAll] = useState(8);
   const [quickAccessApps, setQuickAccessApps] = useState([
     { id: 1, title: "Usuários", description: "Gerenciar usuários", icon: Users, href: "/usuarios" },
     { id: 2, title: "Aplicativos", description: "Cadastrar e configurar apps", icon: Monitor, href: "/aplicativos" },
@@ -36,16 +39,22 @@ const Dashboard = () => {
     { id: 6, title: "Templates", description: "Modelos de e-mail", icon: Mail, href: "/templates" }
   ]);
 
-  const allApps = [
-    { id: 1, title: "Sistema Institucional", sistema: "Portal", modulo: "Institucional", funcao: "Gestão", status: "Ativo" },
-    { id: 2, title: "Portal do Cliente", sistema: "Portal", modulo: "Cliente", funcao: "Atendimento", status: "Ativo" },
-    { id: 3, title: "App Mobile", sistema: "Mobile", modulo: "App", funcao: "Mobile", status: "Desenvolvimento" },
-    { id: 4, title: "Dashboard Analytics", sistema: "Analytics", modulo: "Relatórios", funcao: "Análise", status: "Ativo" },
-    { id: 5, title: "Sistema de Licenças", sistema: "Licenças", modulo: "Controle", funcao: "Regulamentação", status: "Ativo" },
-    { id: 6, title: "Portal de Denúncias", sistema: "Ouvidoria", modulo: "Denúncias", funcao: "Fiscalização", status: "Ativo" },
-    { id: 7, title: "Sistema de Multas", sistema: "Multas", modulo: "Sanções", funcao: "Punição", status: "Inativo" },
-    { id: 8, title: "App Corretor", sistema: "Mobile", modulo: "Corretor", funcao: "Profissional", status: "Ativo" }
-  ];
+  const allApps = Array.from({ length: 25 }, (_, i) => ({
+    id: i + 1,
+    title: i < 8 ? 
+      ["Sistema Institucional", "Portal do Cliente", "App Mobile", "Dashboard Analytics", "Sistema de Licenças", "Portal de Denúncias", "Sistema de Multas", "App Corretor"][i] :
+      `Aplicativo ${i + 1}`,
+    sistema: i < 8 ? 
+      ["Portal", "Portal", "Mobile", "Analytics", "Licenças", "Ouvidoria", "Multas", "Mobile"][i] :
+      ["Portal", "Mobile", "Analytics"][i % 3],
+    modulo: i < 8 ? 
+      ["Institucional", "Cliente", "App", "Relatórios", "Controle", "Denúncias", "Sanções", "Corretor"][i] :
+      ["Módulo A", "Módulo B", "Módulo C"][i % 3],
+    funcao: i < 8 ? 
+      ["Gestão", "Atendimento", "Mobile", "Análise", "Regulamentação", "Fiscalização", "Punição", "Profissional"][i] :
+      ["Gestão", "Operação", "Análise"][i % 3],
+    status: Math.random() > 0.8 ? "Inativo" : Math.random() > 0.9 ? "Desenvolvimento" : "Ativo"
+  }));
 
   const stats = [
     { title: "Usuários Ativos", value: "234", icon: Users, color: "text-blue-600" },
@@ -71,6 +80,17 @@ const Dashboard = () => {
 
   const filteredAvailableApps = availableApps.filter(app =>
     app.title.toLowerCase().includes(searchApp.toLowerCase())
+  );
+
+  // Filter and paginate all apps
+  const filteredAllApps = allApps.filter(app =>
+    app.title.toLowerCase().includes(filterName.toLowerCase())
+  );
+  
+  const totalAllAppsPages = Math.ceil(filteredAllApps.length / appsPerPageAll);
+  const currentAllApps = filteredAllApps.slice(
+    currentAllAppsPage * appsPerPageAll,
+    (currentAllAppsPage + 1) * appsPerPageAll
   );
 
   const addAppToQuickAccess = (app: any) => {
@@ -244,112 +264,210 @@ const Dashboard = () => {
               <Monitor className="h-5 w-5" />
               <CardTitle>Todos os Aplicativos</CardTitle>
             </div>
-            <Dialog open={isFilterModalOpen} onOpenChange={setIsFilterModalOpen}>
-              <DialogTrigger asChild>
-                <Button variant="outline" size="sm">
-                  <Filter className="h-4 w-4 mr-1" />
-                  Filtros
-                </Button>
-              </DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Filtrar Aplicativos</DialogTitle>
-                  <DialogDescription>Filtre os aplicativos por diferentes critérios</DialogDescription>
-                </DialogHeader>
-                <div className="grid gap-4">
-                  <div className="grid gap-2">
-                    <Label>Nome</Label>
-                    <Input placeholder="Digite o nome do aplicativo" />
+            <div className="flex gap-2">
+              <Dialog open={isFilterModalOpen} onOpenChange={setIsFilterModalOpen}>
+                <DialogTrigger asChild>
+                  <Button variant="outline" size="sm">
+                    <Filter className="h-4 w-4 mr-1" />
+                    Filtros
+                  </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Filtrar Aplicativos</DialogTitle>
+                    <DialogDescription>Filtre os aplicativos por diferentes critérios</DialogDescription>
+                  </DialogHeader>
+                  <div className="grid gap-4">
+                    <div className="grid gap-2">
+                      <Label>Nome</Label>
+                      <Input 
+                        placeholder="Digite o nome do aplicativo" 
+                        value={filterName}
+                        onChange={(e) => setFilterName(e.target.value)}
+                      />
+                    </div>
+                    <div className="grid gap-2">
+                      <Label>Sistema</Label>
+                      <Select>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Selecione o sistema" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="portal">Portal</SelectItem>
+                          <SelectItem value="mobile">Mobile</SelectItem>
+                          <SelectItem value="analytics">Analytics</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="grid gap-2">
+                      <Label>Módulo</Label>
+                      <Select>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Selecione o módulo" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="institucional">Institucional</SelectItem>
+                          <SelectItem value="cliente">Cliente</SelectItem>
+                          <SelectItem value="relatorios">Relatórios</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="grid gap-2">
+                      <Label>Função</Label>
+                      <Select>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Selecione a função" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="gestao">Gestão</SelectItem>
+                          <SelectItem value="atendimento">Atendimento</SelectItem>
+                          <SelectItem value="analise">Análise</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="flex justify-end gap-2 pt-4">
+                      <Button variant="outline" onClick={() => setIsFilterModalOpen(false)}>Cancelar</Button>
+                      <Button>Aplicar Filtros</Button>
+                    </div>
                   </div>
-                  <div className="grid gap-2">
-                    <Label>Sistema</Label>
-                    <Select>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Selecione o sistema" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="portal">Portal</SelectItem>
-                        <SelectItem value="mobile">Mobile</SelectItem>
-                        <SelectItem value="analytics">Analytics</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="grid gap-2">
-                    <Label>Módulo</Label>
-                    <Select>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Selecione o módulo" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="institucional">Institucional</SelectItem>
-                        <SelectItem value="cliente">Cliente</SelectItem>
-                        <SelectItem value="relatorios">Relatórios</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="grid gap-2">
-                    <Label>Função</Label>
-                    <Select>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Selecione a função" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="gestao">Gestão</SelectItem>
-                        <SelectItem value="atendimento">Atendimento</SelectItem>
-                        <SelectItem value="analise">Análise</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="flex justify-end gap-2 pt-4">
-                    <Button variant="outline" onClick={() => setIsFilterModalOpen(false)}>Cancelar</Button>
-                    <Button>Aplicar Filtros</Button>
-                  </div>
+                </DialogContent>
+              </Dialog>
+              
+              {totalAllAppsPages > 1 && (
+                <div className="flex gap-1">
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => setCurrentAllAppsPage(Math.max(0, currentAllAppsPage - 1))}
+                    disabled={currentAllAppsPage === 0}
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => setCurrentAllAppsPage(Math.min(totalAllAppsPages - 1, currentAllAppsPage + 1))}
+                    disabled={currentAllAppsPage === totalAllAppsPages - 1}
+                  >
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
                 </div>
-              </DialogContent>
-            </Dialog>
+              )}
+            </div>
           </div>
           <CardDescription>
             Listagem completa de todos os aplicativos criados no sistema
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {allApps.map((app) => (
-              <Card key={app.id} className="group cursor-pointer hover:shadow-soft transition-all duration-300">
-                <CardContent className="p-4">
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <Monitor className="h-6 w-6 text-primary" />
-                      <span className={`text-xs px-2 py-1 rounded-full ${
-                        app.status === 'Ativo' 
-                          ? 'bg-green-100 text-green-800' 
-                          : app.status === 'Desenvolvimento'
-                          ? 'bg-yellow-100 text-yellow-800'
-                          : 'bg-gray-100 text-gray-800'
-                      }`}>
-                        {app.status}
-                      </span>
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-primary group-hover:text-accent transition-colors">
-                        {app.title}
-                      </h3>
-                      <div className="space-y-1 mt-2">
-                        <p className="text-xs text-muted-foreground">
-                          <span className="font-medium">Sistema:</span> {app.sistema}
-                        </p>
-                        <p className="text-xs text-muted-foreground">
-                          <span className="font-medium">Módulo:</span> {app.modulo}
-                        </p>
-                        <p className="text-xs text-muted-foreground">
-                          <span className="font-medium">Função:</span> {app.funcao}
-                        </p>
+          <div className="space-y-4">
+            {/* Search and Items per page controls */}
+            <div className="flex items-center justify-between gap-4">
+              <div className="relative flex-1 max-w-sm">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  placeholder="Buscar por nome do aplicativo..."
+                  value={filterName}
+                  onChange={(e) => {
+                    setFilterName(e.target.value);
+                    setCurrentAllAppsPage(0);
+                  }}
+                  className="pl-10"
+                />
+              </div>
+              <div className="flex items-center gap-2">
+                <Label className="text-sm whitespace-nowrap">Itens por página:</Label>
+                <Select 
+                  value={appsPerPageAll.toString()} 
+                  onValueChange={(value) => {
+                    setAppsPerPageAll(Number(value));
+                    setCurrentAllAppsPage(0);
+                  }}
+                >
+                  <SelectTrigger className="w-20">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="4">4</SelectItem>
+                    <SelectItem value="8">8</SelectItem>
+                    <SelectItem value="12">12</SelectItem>
+                    <SelectItem value="16">16</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            {/* Apps Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {currentAllApps.map((app) => (
+                <Card key={app.id} className="group cursor-pointer hover:shadow-soft transition-all duration-300 animate-fade-in">
+                  <CardContent className="p-4">
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <Monitor className="h-6 w-6 text-primary" />
+                        <span className={`text-xs px-2 py-1 rounded-full ${
+                          app.status === 'Ativo' 
+                            ? 'bg-green-100 text-green-800' 
+                            : app.status === 'Desenvolvimento'
+                            ? 'bg-yellow-100 text-yellow-800'
+                            : 'bg-gray-100 text-gray-800'
+                        }`}>
+                          {app.status}
+                        </span>
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-primary group-hover:text-accent transition-colors">
+                          {app.title}
+                        </h3>
+                        <div className="space-y-1 mt-2">
+                          <p className="text-xs text-muted-foreground">
+                            <span className="font-medium">Sistema:</span> {app.sistema}
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            <span className="font-medium">Módulo:</span> {app.modulo}
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            <span className="font-medium">Função:</span> {app.funcao}
+                          </p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            {/* Pagination info and controls */}
+            {totalAllAppsPages > 1 && (
+              <div className="flex items-center justify-between">
+                <p className="text-sm text-muted-foreground">
+                  Mostrando {currentAllAppsPage * appsPerPageAll + 1} a {Math.min((currentAllAppsPage + 1) * appsPerPageAll, filteredAllApps.length)} de {filteredAllApps.length} aplicativos
+                </p>
+                <div className="flex items-center gap-2">
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => setCurrentAllAppsPage(Math.max(0, currentAllAppsPage - 1))}
+                    disabled={currentAllAppsPage === 0}
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                    Anterior
+                  </Button>
+                  <span className="text-sm px-3 py-2 bg-muted rounded">
+                    {currentAllAppsPage + 1} de {totalAllAppsPages}
+                  </span>
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => setCurrentAllAppsPage(Math.min(totalAllAppsPages - 1, currentAllAppsPage + 1))}
+                    disabled={currentAllAppsPage === totalAllAppsPages - 1}
+                  >
+                    Próximo
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+            )}
           </div>
         </CardContent>
       </Card>
