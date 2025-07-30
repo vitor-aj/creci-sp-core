@@ -35,16 +35,15 @@ export function Systems() {
                 <Input id="system-name" placeholder="Digite o nome do sistema" />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="system-env">Ambiente</Label>
+                <Label htmlFor="system-env">Status</Label>
                 <Select>
                   <SelectTrigger>
-                    <SelectValue placeholder="Selecione o ambiente" />
+                    <SelectValue placeholder="Status" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="prod">Produção</SelectItem>
-                    <SelectItem value="hml">Homologação</SelectItem>
-                    <SelectItem value="dev">Desenvolvimento</SelectItem>
-                    <SelectItem value="test">Teste</SelectItem>
+                    <SelectItem value="prod">Ativo</SelectItem>
+                    <SelectItem value="dev">Pendente</SelectItem>
+                    <SelectItem value="test">Cancelado</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
