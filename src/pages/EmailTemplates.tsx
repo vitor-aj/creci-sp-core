@@ -35,26 +35,10 @@ export function EmailTemplates() {
                 <Label htmlFor="template-name">Nome do template</Label>
                 <Input id="template-name" placeholder="Digite o nome do template" />
               </div>
-              <div className="grid gap-2">
-                <Label htmlFor="template-subject">Assunto</Label>
-                <Input id="template-subject" placeholder="Digite o assunto do e-mail" />
+            
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="template-type">Tipo</Label>
-                <Select>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Selecione o tipo" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="signup">Cadastro</SelectItem>
-                    <SelectItem value="security">Segurança</SelectItem>
-                    <SelectItem value="report">Relatório</SelectItem>
-                    <SelectItem value="system">Sistema</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="template-content">Conteúdo do e-mail</Label>
+                <Label htmlFor="template-content">Template do e-mail</Label>
                 <Textarea id="template-content" placeholder="Digite o conteúdo do template" rows={4} />
               </div>
               <div className="flex justify-end gap-2 pt-4">
