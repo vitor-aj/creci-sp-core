@@ -25,9 +25,6 @@ export function Systems() {
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Novo Sistema</DialogTitle>
-              <DialogDescription>
-                Criar / Editar um novo sistema
-              </DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
               <div className="grid gap-2">
