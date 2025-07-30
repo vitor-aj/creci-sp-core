@@ -16,9 +16,7 @@ export function Profile() {
     name: "João Silva",
     email: "joao.silva@creci.sp.gov.br",
     phone: "(11) 99999-9999",
-    department: "Tecnologia da Informação",
-    role: "Administrador",
-    bio: "Responsável pela administração dos sistemas institucionais do CRECI-SP.",
+    dataNascimento: "01/01/2025",
   });
 
   const [editedProfile, setEditedProfile] = useState(profile);
@@ -125,32 +123,34 @@ export function Profile() {
                 )}
               </div>
 
-
               <div className="space-y-2">
-                <Label htmlFor="department">Departamento</Label>
+                <Label htmlFor="phone">Telefone</Label>
                 {isEditing ? (
                   <Input
-                    id="department"
-                    value={editedProfile.department}
-                    onChange={(e) => setEditedProfile({ ...editedProfile, department: e.target.value })}
+                    id="phone"
+                    value={editedProfile.phone}
+                    onChange={(e) => setEditedProfile({ ...editedProfile, phone: e.target.value })}
                   />
                 ) : (
-                  <p className="text-sm text-foreground bg-muted p-2 rounded-md">{profile.department}</p>
+                  <p className="text-sm text-foreground bg-muted p-2 rounded-md">{profile.phone}</p>
                 )}
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="role">Cargo</Label>
+                <Label htmlFor="dataNascimento">Data de nascimento</Label>
                 {isEditing ? (
                   <Input
-                    id="role"
-                    value={editedProfile.role}
-                    onChange={(e) => setEditedProfile({ ...editedProfile, role: e.target.value })}
+                    id="dataNascimento"
+                    type="date"
+                    value={editedProfile.dataNascimento}
+                    onChange={(e) => setEditedProfile({ ...editedProfile, dataNascimento: e.target.value })}
                   />
                 ) : (
-                  <p className="text-sm text-foreground bg-muted p-2 rounded-md">{profile.role}</p>
+                  <p className="text-sm text-foreground bg-muted p-2 rounded-md">{profile.dataNascimento}</p>
                 )}
               </div>
+
+
             </div>
 
             <div className="space-y-2">
