@@ -36,7 +36,7 @@ export function EmailTemplates() {
                 <Input id="template-name" placeholder="Digite o nome do template" />
               </div>
             
-              </div>
+
               <div className="grid gap-2">
                 <Label htmlFor="template-content">Template do e-mail</Label>
                 <Textarea id="template-content" placeholder="Digite o conteúdo do template" rows={4} />
