@@ -18,7 +18,8 @@ import {
   Search,
   Filter,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  X
 } from "lucide-react";
 
 const Dashboard = () => {
@@ -109,6 +110,10 @@ const Dashboard = () => {
     }
     setIsAddAppModalOpen(false);
     setSearchApp(""); // Clear search when adding
+  };
+
+  const removeAppFromQuickAccess = (appId: number) => {
+    setQuickAccessApps(quickAccessApps.filter(app => app.id !== appId));
   };
 
   // Reset quick access page when search changes
@@ -245,10 +250,20 @@ const Dashboard = () => {
               {currentQuickAccessApps.map((action, index) => (
                 <Card 
                   key={index} 
-                  className="group cursor-pointer border-2 border-transparent hover:border-accent/20 hover:shadow-soft transition-all duration-300"
-                  onClick={() => navigate(action.href)}
+                  className="group cursor-pointer border-2 border-transparent hover:border-accent/20 hover:shadow-soft transition-all duration-300 relative"
                 >
-                  <CardContent className="p-4">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="absolute top-2 right-2 h-6 w-6 p-0 opacity-0 group-hover:opacity-100 transition-opacity z-10 hover:bg-destructive hover:text-destructive-foreground"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      removeAppFromQuickAccess(action.id);
+                    }}
+                  >
+                    <X className="h-3 w-3" />
+                  </Button>
+                  <CardContent className="p-4" onClick={() => navigate(action.href)}>
                     <div className="flex items-start space-x-3">
                       <div className="p-2 rounded-lg bg-gradient-subtle group-hover:bg-accent/10 transition-colors">
                         <action.icon className="h-5 w-5 text-accent" />
