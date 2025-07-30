@@ -7,6 +7,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Database, Plus, Code } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
+
 
 export function Modules() {
   return (
