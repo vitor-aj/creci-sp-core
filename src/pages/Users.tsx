@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
-import { Plus, Edit, Trash2, Search } from "lucide-react";
+import { Plus, Edit, Trash2, Search, Upload } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -69,6 +69,15 @@ export function Users() {
                 <TabsTrigger value="vinculos">Vínculos</TabsTrigger>
               </TabsList>
               <TabsContent value="info" className="mt-4 grid gap-4">
+                <div className="grid gap-2">
+                  <Label>Foto do usuário</Label>
+                  <div className="flex items-center gap-2">
+                    <Input type="file" accept="image/*" />
+                    <Button variant="outline" size="sm">
+                      <Upload className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
                 <div className="grid gap-2">
                   <Label>Nome completo</Label>
                   <Input placeholder="Digite o nome completo" />
@@ -226,12 +235,29 @@ export function Users() {
               </TabsList>
               <TabsContent value="info" className="mt-4 grid gap-4">
                 <div className="grid gap-2">
+                  <Label>Foto do usuário</Label>
+                  <div className="flex items-center gap-2">
+                    <Input type="file" accept="image/*" />
+                    <Button variant="outline" size="sm">
+                      <Upload className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+                <div className="grid gap-2">
                   <Label>Nome completo</Label>
                   <Input defaultValue={editingUser.name} />
                 </div>
                 <div className="grid gap-2">
                   <Label>E-mail</Label>
                   <Input type="email" defaultValue={editingUser.email} />
+                </div>
+                <div className="grid gap-2">
+                  <Label>Data de nascimento</Label>
+                  <Input type="date" />
+                </div>
+                <div className="grid gap-2">
+                  <Label>Senha</Label>
+                  <Input type="password" placeholder="Digite a senha" />
                 </div>
                 <div className="grid gap-2">
                   <Label>Status</Label>
