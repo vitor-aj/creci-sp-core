@@ -125,18 +125,6 @@ export function Profile() {
                 )}
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="phone">Telefone</Label>
-                {isEditing ? (
-                  <Input
-                    id="phone"
-                    value={editedProfile.phone}
-                    onChange={(e) => setEditedProfile({ ...editedProfile, phone: e.target.value })}
-                  />
-                ) : (
-                  <p className="text-sm text-foreground bg-muted p-2 rounded-md">{profile.phone}</p>
-                )}
-              </div>
 
               <div className="space-y-2">
                 <Label htmlFor="department">Departamento</Label>
