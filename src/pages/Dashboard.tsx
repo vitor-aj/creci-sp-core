@@ -455,15 +455,7 @@ const Dashboard = () => {
                     <div className="space-y-3">
                       <div className="flex items-center justify-between">
                         <Monitor className="h-6 w-6 text-primary" />
-                        <span className={`text-xs px-2 py-1 rounded-full ${
-                          app.status === 'Ativo' 
-                            ? 'bg-green-100 text-green-800' 
-                            : app.status === 'Desenvolvimento'
-                            ? 'bg-yellow-100 text-yellow-800'
-                            : 'bg-gray-100 text-gray-800'
-                        }`}>
-                          {app.status}
-                        </span>
+
                       </div>
                       <div>
                         <h3 className="font-semibold text-primary group-hover:text-accent transition-colors">
@@ -476,9 +468,7 @@ const Dashboard = () => {
                           <p className="text-xs text-muted-foreground">
                             <span className="font-medium">Módulo:</span> {app.modulo}
                           </p>
-                          <p className="text-xs text-muted-foreground">
-                            <span className="font-medium">Função:</span> {app.funcao}
-                          </p>
+
                         </div>
                       </div>
                     </div>
