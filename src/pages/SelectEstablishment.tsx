@@ -1,31 +1,54 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Building, Search, ChevronLeft, ChevronRight } from "lucide-react";
+import { Building, Search, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 
-const establishments = Array.from({ length: 25 }, (_, i) => ({
-  id: i + 1,
-  name: `CRECI SP - ${i === 0 ? 'Sede Central' : `Regional ${i}`}`,
-  active: Math.random() > 0.2
-}));
+const establishments = [
+  {
+    id: 1,
+    name: "CRECI SP - Sede Central",
+    address: "Av. Paulista, 1000 - São Paulo/SP",
+    type: "Sede",
+    users: 45,
+    active: true
+  },
+  {
+    id: 2,
+    name: "CRECI SP - Regional Santos",
+    address: "Rua XV de Novembro, 200 - Santos/SP",
+    type: "Regional",
+    users: 12,
+    active: true
+  },
+  {
+    id: 3,
+    name: "CRECI SP - Regional Campinas",
+    address: "Av. Francisco Glicério, 500 - Campinas/SP",
+    type: "Regional",
+    users: 18,
+    active: true
+  },
+  {
+    id: 4,
+    name: "CRECI SP - Regional Ribeirão Preto",
+    address: "Rua General Osório, 300 - Ribeirão Preto/SP",
+    type: "Regional",
+    users: 8,
+    active: false
+  }
+];
 
 export function SelectEstablishment() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
-  const itemsPerPage = 8;
 
   const filteredEstablishments = establishments.filter(est =>
-    est.name.toLowerCase().includes(searchTerm.toLowerCase())
+    est.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    est.address.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
-  const totalPages = Math.ceil(filteredEstablishments.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedEstablishments = filteredEstablishments.slice(startIndex, startIndex + itemsPerPage);
 
   const handleSelectEstablishment = (establishmentId: number) => {
     // Aqui você salvaria o estabelecimento selecionado (localStorage, context, etc.)
@@ -57,8 +80,8 @@ export function SelectEstablishment() {
           </div>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          {paginatedEstablishments.map((establishment) => (
+        <div className="grid grid-cols-3 gap-4 md:grid-cols-2">
+          {filteredEstablishments.map((establishment) => (
             <Card 
               key={establishment.id} 
               className={`cursor-pointer transition-all duration-200 hover:shadow-lg hover:scale-[1.02] ${
@@ -74,6 +97,9 @@ export function SelectEstablishment() {
                     </div>
                     <div>
                       <CardTitle className="text-lg">{establishment.name}</CardTitle>
+                      <CardDescription className="text-sm">
+                        {establishment.address}
+                      </CardDescription>
                     </div>
                   </div>
                   <Badge variant={establishment.active ? "default" : "secondary"}>
@@ -82,9 +108,18 @@ export function SelectEstablishment() {
                 </div>
               </CardHeader>
               <CardContent>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                    <Users className="h-4 w-4" />
+                    <span>{establishment.users} usuários</span>
+                  </div>
+                  <Badge variant="outline">
+                    {establishment.type}
+                  </Badge>
+                </div>
                 {establishment.active && (
                   <Button 
-                    className="w-full" 
+                    className="w-full mt-4" 
                     onClick={(e) => {
                       e.stopPropagation();
                       handleSelectEstablishment(establishment.id);
@@ -98,39 +133,7 @@ export function SelectEstablishment() {
           ))}
         </div>
 
-        {totalPages > 1 && (
-          <div className="flex justify-center mt-6">
-            <Pagination>
-              <PaginationContent>
-                <PaginationItem>
-                  <PaginationPrevious 
-                    onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-                    className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
-                  />
-                </PaginationItem>
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                  <PaginationItem key={page}>
-                    <PaginationLink
-                      onClick={() => setCurrentPage(page)}
-                      isActive={currentPage === page}
-                      className="cursor-pointer"
-                    >
-                      {page}
-                    </PaginationLink>
-                  </PaginationItem>
-                ))}
-                <PaginationItem>
-                  <PaginationNext 
-                    onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
-                    className={currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
-                  />
-                </PaginationItem>
-              </PaginationContent>
-            </Pagination>
-          </div>
-        )}
-
-        {paginatedEstablishments.length === 0 && (
+        {filteredEstablishments.length === 0 && (
           <div className="text-center py-12">
             <Building className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
             <h3 className="text-lg font-medium text-foreground mb-2">
