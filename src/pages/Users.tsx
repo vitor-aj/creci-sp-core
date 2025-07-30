@@ -7,9 +7,10 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
-import { Plus, Edit, Trash2, Search, Upload } from "lucide-react";
+import { Plus, Edit, Trash2, Search, Camera } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const usersData = Array.from({ length: 50 }, (_, i) => ({
   id: i + 1,
@@ -71,11 +72,30 @@ export function Users() {
               <TabsContent value="info" className="mt-4 grid gap-4">
                 <div className="grid gap-2">
                   <Label>Foto do usuário</Label>
-                  <div className="flex items-center gap-2">
-                    <Input type="file" accept="image/*" />
-                    <Button variant="outline" size="sm">
-                      <Upload className="h-4 w-4" />
-                    </Button>
+                  <div className="flex items-center gap-4">
+                    <div className="relative">
+                      <Avatar className="h-20 w-20">
+                        <AvatarImage src="https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?w=150&h=150&fit=crop&crop=face" />
+                        <AvatarFallback>US</AvatarFallback>
+                      </Avatar>
+                      <Button 
+                        size="sm" 
+                        className="absolute -bottom-1 -right-1 h-8 w-8 rounded-full p-0"
+                        onClick={() => document.getElementById('photo-upload')?.click()}
+                      >
+                        <Camera className="h-4 w-4" />
+                      </Button>
+                      <input 
+                        id="photo-upload" 
+                        type="file" 
+                        accept="image/*" 
+                        className="hidden" 
+                      />
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      <p>Clique no ícone da câmera para alterar a foto</p>
+                      <p>Formatos aceitos: JPG, PNG (máx. 2MB)</p>
+                    </div>
                   </div>
                 </div>
                 <div className="grid gap-2">
@@ -236,11 +256,30 @@ export function Users() {
               <TabsContent value="info" className="mt-4 grid gap-4">
                 <div className="grid gap-2">
                   <Label>Foto do usuário</Label>
-                  <div className="flex items-center gap-2">
-                    <Input type="file" accept="image/*" />
-                    <Button variant="outline" size="sm">
-                      <Upload className="h-4 w-4" />
-                    </Button>
+                  <div className="flex items-center gap-4">
+                    <div className="relative">
+                      <Avatar className="h-20 w-20">
+                        <AvatarImage src="https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?w=150&h=150&fit=crop&crop=face" />
+                        <AvatarFallback>{editingUser.name.charAt(0)}</AvatarFallback>
+                      </Avatar>
+                      <Button 
+                        size="sm" 
+                        className="absolute -bottom-1 -right-1 h-8 w-8 rounded-full p-0"
+                        onClick={() => document.getElementById('photo-upload-edit')?.click()}
+                      >
+                        <Camera className="h-4 w-4" />
+                      </Button>
+                      <input 
+                        id="photo-upload-edit" 
+                        type="file" 
+                        accept="image/*" 
+                        className="hidden" 
+                      />
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      <p>Clique no ícone da câmera para alterar a foto</p>
+                      <p>Formatos aceitos: JPG, PNG (máx. 2MB)</p>
+                    </div>
                   </div>
                 </div>
                 <div className="grid gap-2">
