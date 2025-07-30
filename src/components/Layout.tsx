@@ -1,7 +1,5 @@
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
-import { Button } from "@/components/ui/button";
-import { Bell, User } from "lucide-react";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -22,15 +20,6 @@ export function Layout({ children }: LayoutProps) {
                 <div className="text-sm text-muted-foreground">
                   Estabelecimento: <span className="font-medium text-foreground">CRECI SP - Sede</span>
                 </div>
-              </div>
-              
-              <div className="flex items-center space-x-3">
-                <Button variant="ghost" size="sm">
-                  <Bell className="h-4 w-4" />
-                </Button>
-                <Button variant="ghost" size="sm">
-                  <User className="h-4 w-4" />
-                </Button>
               </div>
             </div>
           </header>
