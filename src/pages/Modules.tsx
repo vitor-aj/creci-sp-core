@@ -26,9 +26,6 @@ export function Modules() {
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Novo Módulo</DialogTitle>
-              <DialogDescription>
-                Adicione uma nova funcionalidade ao sistema
-              </DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
               <div className="grid gap-2">
@@ -36,12 +33,32 @@ export function Modules() {
                 <Input id="module-name" placeholder="Digite o nome do módulo" />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="module-version">Versão</Label>
-                <Input id="module-version" placeholder="ex: v1.0" />
+                <Label htmlFor="system-env">Sistema</Label>
+                <Select>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecione o sistema" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="sis01">Nome do Sistema 01</SelectItem>
+                    <SelectItem value="sis02">Nome do Sistema 02</SelectItem>
+                    <SelectItem value="sis03">Nome do Sistema 03</SelectItem>
+                    <SelectItem value="sis04">Nome do Sistema 04</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
+
               <div className="grid gap-2">
-                <Label htmlFor="module-description">Descrição</Label>
-                <Textarea id="module-description" placeholder="Descreva a funcionalidade do módulo" />
+                <Label htmlFor="system-env">Status</Label>
+                <Select>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Status" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="prod">Ativo</SelectItem>
+                    <SelectItem value="dev">Pendente</SelectItem>
+                    <SelectItem value="test">Cancelado</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
               <div className="flex justify-end gap-2 pt-4">
                 <Button variant="outline">Cancelar</Button>
