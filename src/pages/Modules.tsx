@@ -1,16 +1,47 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Database, Plus, Code } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
+import { Plus, Edit, Trash2, Search } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Switch } from "@/components/ui/switch";
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 
+const modulesData = Array.from({ length: 50 }, (_, i) => ({
+  id: i + 1,
+  name: `Módulo ${i + 1}`,
+  system: `Sistema ${Math.floor(i / 5) + 1}`,
+  status: Math.random() > 0.3 ? "Ativo" : "Inativo"
+}));
 
 export function Modules() {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [editingModule, setEditingModule] = useState<any>(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const itemsPerPage = 10;
+
+  const filteredModules = modulesData.filter(module =>
+    module.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const totalPages = Math.ceil(filteredModules.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const paginatedModules = filteredModules.slice(startIndex, startIndex + itemsPerPage);
+
+  const handleEdit = (module: any) => {
+    setEditingModule(module);
+    setIsEditModalOpen(true);
+  };
+
+  const handleDelete = (id: number) => {
+    // Implement delete logic
+    console.log(`Delete module ${id}`);
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -18,9 +49,9 @@ export function Modules() {
           <h1 className="text-3xl font-bold text-foreground">Módulos</h1>
           <p className="text-muted-foreground">Funcionalidades e recursos do sistema</p>
         </div>
-        <Dialog onOpenChange={(open) => console.log('Modules Dialog:', open)}>
+        <Dialog>
           <DialogTrigger asChild>
-            <Button onClick={() => console.log('Modules button clicked')}>
+            <Button>
               <Plus className="h-4 w-4 mr-2" />
               Novo Módulo
             </Button>
@@ -55,9 +86,8 @@ export function Modules() {
                     <SelectValue placeholder="Status" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="prod">Ativo</SelectItem>
-                    <SelectItem value="dev">Pendente</SelectItem>
-                    <SelectItem value="test">Cancelado</SelectItem>
+                    <SelectItem value="ativo">Ativo</SelectItem>
+                    <SelectItem value="inativo">Inativo</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -70,43 +100,143 @@ export function Modules() {
         </Dialog>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {[
-          { name: "Gestão de Usuários", description: "Controle completo de usuários", version: "v2.1", active: true },
-          { name: "Relatórios", description: "Geração de relatórios automatizados", version: "v1.8", active: true },
-          { name: "Notificações", description: "Sistema de notificações push", version: "v1.2", active: false },
-          { name: "API Gateway", description: "Controle de acesso à API", version: "v3.0", active: true },
-          { name: "Auditoria", description: "Log de ações do sistema", version: "v1.5", active: true },
-          { name: "Backup", description: "Rotinas de backup automático", version: "v2.0", active: false },
-        ].map((module, index) => (
-          <Card key={index}>
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <Database className="h-5 w-5 text-primary" />
-                <span>{module.name}</span>
-              </CardTitle>
-              <CardDescription>
-                {module.description}
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-2">
-                  <Badge variant="outline">
-                    {module.version}
-                  </Badge>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Switch checked={module.active} />
-                  <Button variant="outline" size="sm">
-                    <Code className="h-4 w-4" />
-                  </Button>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+      <div className="flex items-center space-x-2">
+        <div className="relative flex-1 max-w-sm">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+          <Input
+            placeholder="Buscar por nome..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="pl-10"
+          />
+        </div>
       </div>
+
+      <Card>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>ID</TableHead>
+                <TableHead>Nome</TableHead>
+                <TableHead>Sistema</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Ações</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {paginatedModules.map((module) => (
+                <TableRow key={module.id}>
+                  <TableCell>{module.id}</TableCell>
+                  <TableCell>{module.name}</TableCell>
+                  <TableCell>{module.system}</TableCell>
+                  <TableCell>
+                    <Badge variant={module.status === "Ativo" ? "default" : "outline"}>
+                      {module.status}
+                    </Badge>
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex gap-2">
+                      <Button variant="outline" size="sm" onClick={() => handleEdit(module)}>
+                        <Edit className="h-4 w-4 mr-1" />
+                        Editar
+                      </Button>
+                      <Button variant="outline" size="sm" onClick={() => handleDelete(module.id)}>
+                        <Trash2 className="h-4 w-4 mr-1" />
+                        Excluir
+                      </Button>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+
+          {totalPages > 1 && (
+            <div className="flex justify-center mt-6">
+              <Pagination>
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious 
+                      onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                      className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                    />
+                  </PaginationItem>
+                  {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                    const page = Math.max(1, Math.min(totalPages - 4, currentPage - 2)) + i;
+                    return (
+                      <PaginationItem key={page}>
+                        <PaginationLink
+                          onClick={() => setCurrentPage(page)}
+                          isActive={currentPage === page}
+                          className="cursor-pointer"
+                        >
+                          {page}
+                        </PaginationLink>
+                      </PaginationItem>
+                    );
+                  })}
+                  <PaginationItem>
+                    <PaginationNext 
+                      onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                      className={currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                    />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Edit Modal */}
+      {isEditModalOpen && editingModule && (
+        <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Editar Módulo</DialogTitle>
+              <DialogDescription>
+                Edite as informações do módulo {editingModule.name}
+              </DialogDescription>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <div className="grid gap-2">
+                <Label htmlFor="edit-module-name">Nome do módulo</Label>
+                <Input id="edit-module-name" defaultValue={editingModule.name} />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="edit-system">Sistema</Label>
+                <Select defaultValue={editingModule.system}>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Sistema 1">Sistema 1</SelectItem>
+                    <SelectItem value="Sistema 2">Sistema 2</SelectItem>
+                    <SelectItem value="Sistema 3">Sistema 3</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="edit-status">Status</Label>
+                <Select defaultValue={editingModule.status}>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Ativo">Ativo</SelectItem>
+                    <SelectItem value="Inativo">Inativo</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="flex justify-end gap-2 pt-4">
+                <Button variant="outline" onClick={() => setIsEditModalOpen(false)}>Cancelar</Button>
+                <Button>Salvar</Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
     </div>
   );
 }

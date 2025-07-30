@@ -1,57 +1,46 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle
-} from "@/components/ui/card";
+import { useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from "@/components/ui/select";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger
-} from "@/components/ui/tabs";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow
-} from "@/components/ui/table";
-import { Shield, Plus, Users, Settings, Trash2 } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
+import { Plus, Edit, Trash2, Search } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { useState } from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+const userGroupsData = Array.from({ length: 30 }, (_, i) => ({
+  id: i + 1,
+  name: `Grupo ${i + 1}`,
+  status: Math.random() > 0.3 ? "Ativo" : "Inativo"
+}));
 
 export function UserGroups() {
-  const [usuarios, setUsuarios] = useState([]);
-  const [apps, setApps] = useState([]);
-  const [tipoBusca, setTipoBusca] = useState("aplicativo");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [editingGroup, setEditingGroup] = useState<any>(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [usuarios, setUsuarios] = useState<any[]>([]);
+  const [apps, setApps] = useState<any[]>([]);
+  const itemsPerPage = 10;
 
-  const adicionarUsuario = () => {
-    setUsuarios([...usuarios, { id: Date.now(), nome: "Usuário Exemplo" }]);
+  const filteredGroups = userGroupsData.filter(group =>
+    group.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const totalPages = Math.ceil(filteredGroups.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const paginatedGroups = filteredGroups.slice(startIndex, startIndex + itemsPerPage);
+
+  const handleEdit = (group: any) => {
+    setEditingGroup(group);
+    setIsEditModalOpen(true);
   };
 
-  const adicionarApp = () => {
-    setApps([...apps, { id: Date.now(), nome: "App Exemplo" }]);
+  const handleDelete = (id: number) => {
+    console.log(`Delete group ${id}`);
   };
 
   return (
@@ -59,31 +48,26 @@ export function UserGroups() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-foreground">Grupos de Usuário</h1>
-          <p className="text-muted-foreground">
-            Configure perfis de acesso e permissões
-          </p>
+          <p className="text-muted-foreground">Configure perfis de acesso e permissões</p>
         </div>
         <Dialog>
           <DialogTrigger asChild>
             <Button>
-              <Plus className="h-4 w-4 mr-2" /> Novo Grupo
+              <Plus className="h-4 w-4 mr-2" />
+              Novo Grupo
             </Button>
           </DialogTrigger>
           <DialogContent className="max-w-3xl">
             <DialogHeader>
               <DialogTitle>Novo Grupo de Usuário</DialogTitle>
-              <DialogDescription>
-                Configure um novo perfil de acesso e permissões
-              </DialogDescription>
+              <DialogDescription>Configure um novo perfil de acesso e permissões</DialogDescription>
             </DialogHeader>
-
             <Tabs defaultValue="info" className="mt-4">
               <TabsList>
                 <TabsTrigger value="info">Informações</TabsTrigger>
                 <TabsTrigger value="usuarios">Usuários</TabsTrigger>
                 <TabsTrigger value="apps">Aplicativos</TabsTrigger>
               </TabsList>
-
               <TabsContent value="info" className="mt-4 grid gap-4">
                 <div className="grid gap-2">
                   <Label>Nome</Label>
@@ -97,25 +81,22 @@ export function UserGroups() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="ativo">Ativo</SelectItem>
-                      <SelectItem value="pendente">Pendente</SelectItem>
-                      <SelectItem value="cancelado">Cancelado</SelectItem>
+                      <SelectItem value="inativo">Inativo</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
               </TabsContent>
-
               <TabsContent value="usuarios" className="mt-4 grid gap-4">
                 <div className="flex gap-2">
                   <Input placeholder="Buscar usuário" />
-                  <Button onClick={adicionarUsuario}>Adicionar</Button>
+                  <Button>Adicionar</Button>
                 </div>
-                <Input placeholder="Pesquisar na tabela" className="mt-4" />
                 <Table>
                   <TableHeader>
                     <TableRow>
                       <TableHead>ID</TableHead>
                       <TableHead>Usuário</TableHead>
-                      <TableHead></TableHead>
+                      <TableHead>Ações</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -124,13 +105,7 @@ export function UserGroups() {
                         <TableCell>{u.id}</TableCell>
                         <TableCell>{u.nome}</TableCell>
                         <TableCell>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() =>
-                              setUsuarios(usuarios.filter((x) => x.id !== u.id))
-                            }
-                          >
+                          <Button variant="ghost" size="sm">
                             <Trash2 className="h-4 w-4 text-red-500" />
                           </Button>
                         </TableCell>
@@ -139,39 +114,17 @@ export function UserGroups() {
                   </TableBody>
                 </Table>
               </TabsContent>
-
               <TabsContent value="apps" className="mt-4 grid gap-4">
-                <Label className="font-bold text-lg">Adicionar aplicativo</Label>
-                <div className="grid md:grid-cols-4 gap-4 items-end">
-                  <div className="col-span-1">
-                    <Label>Inserir por</Label>
-                    <Select onValueChange={setTipoBusca} defaultValue="aplicativo">
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="aplicativo">Aplicativo</SelectItem>
-                        <SelectItem value="modulo">Módulo</SelectItem>
-                        <SelectItem value="sistema">Sistema</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="col-span-2">
-                    <Label>Pesquisar</Label>
-                    <Input placeholder={`Buscar por ${tipoBusca}`} />
-                  </div>
-                  <div>
-                    <Button className="mt-6" onClick={adicionarApp}>Adicionar</Button>
-                  </div>
+                <div className="flex gap-2">
+                  <Input placeholder="Buscar aplicativo" />
+                  <Button>Adicionar</Button>
                 </div>
-
-                <Input placeholder="Pesquisar na tabela" className="mt-4" />
                 <Table>
                   <TableHeader>
                     <TableRow>
                       <TableHead>ID</TableHead>
                       <TableHead>Aplicativo</TableHead>
-                      <TableHead></TableHead>
+                      <TableHead>Ações</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -180,11 +133,7 @@ export function UserGroups() {
                         <TableCell>{a.id}</TableCell>
                         <TableCell>{a.nome}</TableCell>
                         <TableCell>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => setApps(apps.filter((x) => x.id !== a.id))}
-                          >
+                          <Button variant="ghost" size="sm">
                             <Trash2 className="h-4 w-4 text-red-500" />
                           </Button>
                         </TableCell>
@@ -194,7 +143,6 @@ export function UserGroups() {
                 </Table>
               </TabsContent>
             </Tabs>
-
             <div className="flex justify-end gap-2 pt-4">
               <Button variant="outline">Cancelar</Button>
               <Button>Salvar</Button>
@@ -203,36 +151,169 @@ export function UserGroups() {
         </Dialog>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {[{ name: "Administradores", permissions: "Completo", users: 3 }].map(
-          (group, index) => (
-            <Card key={index}>
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <Shield className="h-5 w-5 text-primary" />
-                  <span>{group.name}</span>
-                </CardTitle>
-                <CardDescription>
-                  {group.users} usuários neste grupo
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center justify-between">
-                  <Badge variant="outline">{group.permissions}</Badge>
-                  <div className="flex space-x-2">
-                    <Button variant="outline" size="sm">
-                      <Users className="h-4 w-4" />
-                    </Button>
-                    <Button variant="outline" size="sm">
-                      <Settings className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          )
-        )}
+      <div className="flex items-center space-x-2">
+        <div className="relative flex-1 max-w-sm">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+          <Input
+            placeholder="Buscar por nome..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="pl-10"
+          />
+        </div>
       </div>
+
+      <Card>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>ID</TableHead>
+                <TableHead>Nome</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Ações</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {paginatedGroups.map((group) => (
+                <TableRow key={group.id}>
+                  <TableCell>{group.id}</TableCell>
+                  <TableCell>{group.name}</TableCell>
+                  <TableCell>
+                    <Badge variant={group.status === "Ativo" ? "default" : "outline"}>
+                      {group.status}
+                    </Badge>
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex gap-2">
+                      <Button variant="outline" size="sm" onClick={() => handleEdit(group)}>
+                        <Edit className="h-4 w-4 mr-1" />
+                        Editar
+                      </Button>
+                      <Button variant="outline" size="sm" onClick={() => handleDelete(group.id)}>
+                        <Trash2 className="h-4 w-4 mr-1" />
+                        Excluir
+                      </Button>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+
+          {totalPages > 1 && (
+            <div className="flex justify-center mt-6">
+              <Pagination>
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious 
+                      onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                      className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                    />
+                  </PaginationItem>
+                  {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                    const page = Math.max(1, Math.min(totalPages - 4, currentPage - 2)) + i;
+                    return (
+                      <PaginationItem key={page}>
+                        <PaginationLink
+                          onClick={() => setCurrentPage(page)}
+                          isActive={currentPage === page}
+                          className="cursor-pointer"
+                        >
+                          {page}
+                        </PaginationLink>
+                      </PaginationItem>
+                    );
+                  })}
+                  <PaginationItem>
+                    <PaginationNext 
+                      onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                      className={currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                    />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Edit Modal */}
+      {isEditModalOpen && editingGroup && (
+        <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
+          <DialogContent className="max-w-3xl">
+            <DialogHeader>
+              <DialogTitle>Editar Grupo</DialogTitle>
+              <DialogDescription>
+                Edite as informações do grupo {editingGroup.name}
+              </DialogDescription>
+            </DialogHeader>
+            <Tabs defaultValue="info" className="mt-4">
+              <TabsList>
+                <TabsTrigger value="info">Informações</TabsTrigger>
+                <TabsTrigger value="usuarios">Usuários</TabsTrigger>
+                <TabsTrigger value="apps">Aplicativos</TabsTrigger>
+              </TabsList>
+              <TabsContent value="info" className="mt-4 grid gap-4">
+                <div className="grid gap-2">
+                  <Label>Nome</Label>
+                  <Input defaultValue={editingGroup.name} />
+                </div>
+                <div className="grid gap-2">
+                  <Label>Status</Label>
+                  <Select defaultValue={editingGroup.status}>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Ativo">Ativo</SelectItem>
+                      <SelectItem value="Inativo">Inativo</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </TabsContent>
+              <TabsContent value="usuarios" className="mt-4 grid gap-4">
+                <div className="flex gap-2">
+                  <Input placeholder="Buscar usuário" />
+                  <Button>Adicionar</Button>
+                </div>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>ID</TableHead>
+                      <TableHead>Usuário</TableHead>
+                      <TableHead>Ações</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                  </TableBody>
+                </Table>
+              </TabsContent>
+              <TabsContent value="apps" className="mt-4 grid gap-4">
+                <div className="flex gap-2">
+                  <Input placeholder="Buscar aplicativo" />
+                  <Button>Adicionar</Button>
+                </div>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>ID</TableHead>
+                      <TableHead>Aplicativo</TableHead>
+                      <TableHead>Ações</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                  </TableBody>
+                </Table>
+              </TabsContent>
+            </Tabs>
+            <div className="flex justify-end gap-2 pt-4">
+              <Button variant="outline" onClick={() => setIsEditModalOpen(false)}>Cancelar</Button>
+              <Button>Salvar</Button>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
     </div>
   );
 }

@@ -1,16 +1,48 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Monitor, Plus, Settings, Globe, Trash2 } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
+import { Plus, Edit, Trash2, Search } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
+const applicationsData = Array.from({ length: 40 }, (_, i) => ({
+  id: i + 1,
+  title: `Aplicativo ${i + 1}`,
+  status: Math.random() > 0.3 ? "Ativo" : "Inativo"
+}));
 
 export function Applications() {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [editingApp, setEditingApp] = useState<any>(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const itemsPerPage = 10;
+
+  const filteredApplications = applicationsData.filter(app =>
+    app.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const totalPages = Math.ceil(filteredApplications.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const paginatedApplications = filteredApplications.slice(startIndex, startIndex + itemsPerPage);
+
+  const handleEdit = (app: any) => {
+    setEditingApp(app);
+    setIsEditModalOpen(true);
+  };
+
+  const handleDelete = (id: number) => {
+    console.log(`Delete application ${id}`);
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -152,28 +184,26 @@ export function Applications() {
                 </div>
                 <div className="mt-4">
                   <Label>Estabelecimentos adicionados</Label>
-                  <div className="border rounded-md overflow-hidden mt-2">
-                    <table className="w-full text-sm">
-                      <thead className="bg-muted">
-                        <tr>
-                          <th className="px-4 py-2 text-left">ID</th>
-                          <th className="px-4 py-2 text-left">Estabelecimento</th>
-                          <th className="px-4 py-2 text-right">Ações</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td className="px-4 py-2">1</td>
-                          <td className="px-4 py-2">Estabelecimento A</td>
-                          <td className="px-4 py-2 text-right">
-                            <Button size="icon" variant="ghost">
-                              <Trash2 className="h-4 w-4" />
-                            </Button>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
+                  <Table className="mt-2">
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>ID</TableHead>
+                        <TableHead>Estabelecimento</TableHead>
+                        <TableHead>Ações</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell>1</TableCell>
+                        <TableCell>Estabelecimento A</TableCell>
+                        <TableCell>
+                          <Button size="sm" variant="ghost">
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
                 </div>
               </TabsContent>
             </Tabs>
@@ -185,41 +215,153 @@ export function Applications() {
         </Dialog>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {[
-          { name: "Sistema Institucional", status: "Ativo", users: 45 },
-          { name: "Portal do Cliente", status: "Ativo", users: 120 },
-          { name: "App Mobile", status: "Desenvolvimento", users: 0 },
-          { name: "Dashboard Analytics", status: "Ativo", users: 8 },
-        ].map((app, index) => (
-          <Card key={index}>
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <Monitor className="h-5 w-5 text-primary" />
-                <span>{app.name}</span>
-              </CardTitle>
-              <CardDescription>
-                {app.users} usuários ativos
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="flex items-center justify-between">
-                <Badge variant={app.status === "Ativo" ? "default" : "secondary"}>
-                  {app.status}
-                </Badge>
-                <div className="flex space-x-2">
-                  <Button variant="outline" size="sm">
-                    <Settings className="h-4 w-4" />
-                  </Button>
-                  <Button variant="outline" size="sm">
-                    <Globe className="h-4 w-4" />
-                  </Button>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+      <div className="flex items-center space-x-2">
+        <div className="relative flex-1 max-w-sm">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+          <Input
+            placeholder="Buscar por título..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="pl-10"
+          />
+        </div>
       </div>
+
+      <Card>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>ID</TableHead>
+                <TableHead>Título</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Ações</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {paginatedApplications.map((app) => (
+                <TableRow key={app.id}>
+                  <TableCell>{app.id}</TableCell>
+                  <TableCell>{app.title}</TableCell>
+                  <TableCell>
+                    <Badge variant={app.status === "Ativo" ? "default" : "outline"}>
+                      {app.status}
+                    </Badge>
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex gap-2">
+                      <Button variant="outline" size="sm" onClick={() => handleEdit(app)}>
+                        <Edit className="h-4 w-4 mr-1" />
+                        Editar
+                      </Button>
+                      <Button variant="outline" size="sm" onClick={() => handleDelete(app.id)}>
+                        <Trash2 className="h-4 w-4 mr-1" />
+                        Excluir
+                      </Button>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+
+          {totalPages > 1 && (
+            <div className="flex justify-center mt-6">
+              <Pagination>
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious 
+                      onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                      className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                    />
+                  </PaginationItem>
+                  {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                    const page = Math.max(1, Math.min(totalPages - 4, currentPage - 2)) + i;
+                    return (
+                      <PaginationItem key={page}>
+                        <PaginationLink
+                          onClick={() => setCurrentPage(page)}
+                          isActive={currentPage === page}
+                          className="cursor-pointer"
+                        >
+                          {page}
+                        </PaginationLink>
+                      </PaginationItem>
+                    );
+                  })}
+                  <PaginationItem>
+                    <PaginationNext 
+                      onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                      className={currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                    />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Edit Modal */}
+      {isEditModalOpen && editingApp && (
+        <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
+          <DialogContent className="max-w-4xl">
+            <DialogHeader>
+              <DialogTitle>Editar Aplicativo</DialogTitle>
+              <DialogDescription>
+                Edite as informações do aplicativo {editingApp.title}
+              </DialogDescription>
+            </DialogHeader>
+            <Tabs defaultValue="config" className="mt-4">
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="config">Configuração</TabsTrigger>
+                <TabsTrigger value="establishments">Estabelecimentos</TabsTrigger>
+              </TabsList>
+              <TabsContent value="config" className="grid gap-4 mt-4">
+                <div className="grid gap-2">
+                  <Label>Nome</Label>
+                  <Input defaultValue={editingApp.title} />
+                </div>
+                <div className="grid gap-2">
+                  <Label>Status</Label>
+                  <Select defaultValue={editingApp.status}>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Ativo">Ativo</SelectItem>
+                      <SelectItem value="Inativo">Inativo</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="grid gap-2">
+                  <Label>Descrição</Label>
+                  <Textarea placeholder="Descrição do aplicativo" />
+                </div>
+              </TabsContent>
+              <TabsContent value="establishments" className="grid gap-4 mt-4">
+                <Label>Estabelecimentos vinculados</Label>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>ID</TableHead>
+                      <TableHead>Estabelecimento</TableHead>
+                      <TableHead>Ações</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {/* Existing establishments would be shown here */}
+                  </TableBody>
+                </Table>
+              </TabsContent>
+            </Tabs>
+            <div className="flex justify-end gap-2 pt-4">
+              <Button variant="outline" onClick={() => setIsEditModalOpen(false)}>Cancelar</Button>
+              <Button>Salvar</Button>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
     </div>
   );
 }
