@@ -47,10 +47,6 @@ export function Systems() {
                   </SelectContent>
                 </Select>
               </div>
-              <div className="grid gap-2">
-                <Label htmlFor="system-url">URL do sistema</Label>
-                <Input id="system-url" placeholder="https://exemplo.com" />
-              </div>
               <div className="flex justify-end gap-2 pt-4">
                 <Button variant="outline">Cancelar</Button>
                 <Button>Salvar</Button>
