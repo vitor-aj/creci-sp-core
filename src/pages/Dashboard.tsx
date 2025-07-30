@@ -24,6 +24,7 @@ import {
 const Dashboard = () => {
   const navigate = useNavigate();
   const [searchApp, setSearchApp] = useState("");
+  const [searchQuickAccess, setSearchQuickAccess] = useState("");
   const [currentQuickAccessPage, setCurrentQuickAccessPage] = useState(0);
   const [isAddAppModalOpen, setIsAddAppModalOpen] = useState(false);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
@@ -71,9 +72,15 @@ const Dashboard = () => {
   ];
 
   const appsPerPage = 3;
-  const totalQuickAccessPages = Math.ceil(quickAccessApps.length / appsPerPage);
   
-  const currentQuickAccessApps = quickAccessApps.slice(
+  // Filter quick access apps by search term
+  const filteredQuickAccessApps = quickAccessApps.filter(app =>
+    app.title.toLowerCase().includes(searchQuickAccess.toLowerCase())
+  );
+  
+  const totalQuickAccessPages = Math.ceil(filteredQuickAccessApps.length / appsPerPage);
+  
+  const currentQuickAccessApps = filteredQuickAccessApps.slice(
     currentQuickAccessPage * appsPerPage,
     (currentQuickAccessPage + 1) * appsPerPage
   );
@@ -101,6 +108,13 @@ const Dashboard = () => {
       }]);
     }
     setIsAddAppModalOpen(false);
+    setSearchApp(""); // Clear search when adding
+  };
+
+  // Reset quick access page when search changes
+  const handleQuickAccessSearch = (value: string) => {
+    setSearchQuickAccess(value);
+    setCurrentQuickAccessPage(0);
   };
 
   return (
@@ -214,30 +228,51 @@ const Dashboard = () => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {currentQuickAccessApps.map((action, index) => (
-              <Card 
-                key={index} 
-                className="group cursor-pointer border-2 border-transparent hover:border-accent/20 hover:shadow-soft transition-all duration-300"
-                onClick={() => navigate(action.href)}
-              >
-                <CardContent className="p-4">
-                  <div className="flex items-start space-x-3">
-                    <div className="p-2 rounded-lg bg-gradient-subtle group-hover:bg-accent/10 transition-colors">
-                      <action.icon className="h-5 w-5 text-accent" />
+          <div className="space-y-4">
+            {/* Search for quick access */}
+            <div className="relative max-w-sm">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input
+                placeholder="Buscar aplicativo..."
+                value={searchQuickAccess}
+                onChange={(e) => handleQuickAccessSearch(e.target.value)}
+                className="pl-10"
+              />
+            </div>
+
+            {/* Apps Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {currentQuickAccessApps.map((action, index) => (
+                <Card 
+                  key={index} 
+                  className="group cursor-pointer border-2 border-transparent hover:border-accent/20 hover:shadow-soft transition-all duration-300"
+                  onClick={() => navigate(action.href)}
+                >
+                  <CardContent className="p-4">
+                    <div className="flex items-start space-x-3">
+                      <div className="p-2 rounded-lg bg-gradient-subtle group-hover:bg-accent/10 transition-colors">
+                        <action.icon className="h-5 w-5 text-accent" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-primary group-hover:text-accent transition-colors">
+                          {action.title}
+                        </h3>
+                        <p className="text-sm text-muted-foreground mt-1">
+                          {action.description}
+                        </p>
+                      </div>
                     </div>
-                    <div className="flex-1">
-                      <h3 className="font-semibold text-primary group-hover:text-accent transition-colors">
-                        {action.title}
-                      </h3>
-                      <p className="text-sm text-muted-foreground mt-1">
-                        {action.description}
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+            
+            {/* Show message when no apps found */}
+            {filteredQuickAccessApps.length === 0 && searchQuickAccess && (
+              <div className="text-center py-8">
+                <p className="text-muted-foreground">Nenhum aplicativo encontrado para "{searchQuickAccess}"</p>
+              </div>
+            )}
           </div>
           
           {totalQuickAccessPages > 1 && (
