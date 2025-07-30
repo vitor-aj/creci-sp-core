@@ -190,10 +190,7 @@ export function AppSidebar() {
               <User className="h-4 w-4 mr-2" />
               Minha Conta
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => window.location.href = '/configuracoes'}>
-              <Settings className="h-4 w-4 mr-2" />
-              Configurações
-            </DropdownMenuItem>
+
             <DropdownMenuSeparator />
             <DropdownMenuItem 
               className="text-destructive"
