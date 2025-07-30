@@ -42,16 +42,7 @@ const Dashboard = () => {
             Bem-vindo ao sistema de gerenciamento CRECI SP
           </p>
         </div>
-        <div className="flex items-center space-x-3">
-          <Button variant="outline" size="sm">
-            <Bell className="h-4 w-4 mr-2" />
-            Notificações
-          </Button>
-          <Button variant="outline" size="sm">
-            <BarChart3 className="h-4 w-4 mr-2" />
-            Relatórios
-          </Button>
-        </div>
+        
       </div>
 
       {/* Stats Cards */}
@@ -115,6 +106,33 @@ const Dashboard = () => {
         </CardContent>
       </Card>
 
+      {/* Recent Activity */}
+      <Card className="shadow-soft">
+        <CardHeader>
+          <CardTitle className="flex items-center space-x-2">
+            <FileText className="h-5 w-5" />
+            <span>Atividade Recente</span>
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            {[
+              { action: "Novo usuário cadastrado", user: "João Silva", time: "há 2 horas" },
+              { action: "Aplicativo atualizado", user: "Sistema", time: "há 3 horas" },
+              { action: "Permissões alteradas", user: "Maria Santos", time: "há 5 horas" },
+              { action: "Template de e-mail criado", user: "Admin", time: "há 1 dia" },
+            ].map((item, index) => (
+              <div key={index} className="flex items-center justify-between py-2 border-b border-border last:border-0">
+                <div>
+                  <p className="text-sm font-medium text-primary">{item.action}</p>
+                  <p className="text-xs text-muted-foreground">por {item.user}</p>
+                </div>
+                <span className="text-xs text-muted-foreground">{item.time}</span>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };
