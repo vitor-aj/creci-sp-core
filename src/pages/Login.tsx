@@ -36,19 +36,38 @@ const Login = () => {
   };
   return <div className="min-h-screen flex">
       {/* Left Side - Branding */}
-      <div className="hidden lg:flex lg:w-1/2 bg-gradient-primary relative overflow-hidden">
-        <div className="absolute inset-0 bg-primary/10" />
-        <div className="relative z-10 flex flex-col justify-center px-12 text-white">
-          <div className="mb-8">
-            <h1 className="text-4xl font-bold mb-4">CRECI SP - CORE</h1>
-            
+      <div className="hidden lg:flex lg:w-1/2 bg-white relative overflow-hidden">
+        <div className="relative z-10 flex flex-col justify-center items-center px-12 text-gray-800 w-full">
+          <div className="mb-8 text-center">
+            <img 
+              src="/src/assets/creci-logo.png" 
+              alt="CRECI SP Logo" 
+              className="h-32 w-auto mx-auto mb-6"
+            />
+            <h1 className="text-3xl font-bold mb-4 text-gray-800">
+              Sistema Integrado CRECI SP
+            </h1>
+            <p className="text-lg text-gray-600 mb-2">
+              Conselho Regional de Corretores de Imóveis
+            </p>
+            <p className="text-base text-gray-500">
+              2ª Região - São Paulo
+            </p>
           </div>
           
+          <div className="text-center space-y-3">
+            <p className="text-sm text-gray-600">
+              Plataforma oficial para gestão e controle
+            </p>
+            <p className="text-sm text-gray-600">
+              de atividades do CRECI SP
+            </p>
+          </div>
         </div>
         
-        {/* Geometric decoration */}
-        <div className="absolute top-20 right-20 w-32 h-32 border border-primary-foreground/20 rounded-full" />
-        <div className="absolute bottom-32 right-32 w-24 h-24 border border-primary-foreground/30 rounded-full" />
+        {/* Subtle decoration */}
+        <div className="absolute top-20 right-20 w-16 h-16 border border-gray-200 rounded-full opacity-50" />
+        <div className="absolute bottom-32 right-32 w-12 h-12 border border-gray-300 rounded-full opacity-30" />
       </div>
 
       {/* Right Side - Login Form */}
