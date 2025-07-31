@@ -47,29 +47,23 @@ const navigationItems = [
 ];
 
 const managementItems = [
-  { 
-    title: "Usuários", 
-    url: "/usuarios", 
-    icon: Users,
-    description: "Gerenciar usuários do sistema" 
-  },
-  { 
+    { 
     title: "Aplicativos", 
     url: "/aplicativos", 
     icon: Monitor,
     description: "Cadastrar aplicativos" 
   },
-  { 
-    title: "Grupos de Usuário", 
-    url: "/grupos", 
-    icon: Shield,
-    description: "Perfis de acesso" 
-  },
-  { 
+    { 
     title: "Estabelecimentos", 
     url: "/estabelecimentos", 
     icon: Building,
     description: "Gerenciar locais" 
+  },
+    { 
+    title: "Grupos de Usuário", 
+    url: "/grupos", 
+    icon: Shield,
+    description: "Perfis de acesso" 
   },
   { 
     title: "Módulos", 
@@ -88,6 +82,12 @@ const managementItems = [
     url: "/templates", 
     icon: Mail,
     description: "Modelos de e-mail" 
+  },
+    { 
+    title: "Usuários", 
+    url: "/usuarios", 
+    icon: Users,
+    description: "Gerenciar usuários do sistema" 
   },
 ];
 
