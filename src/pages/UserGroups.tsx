@@ -24,7 +24,7 @@ export function UserGroups() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [usuarios, setUsuarios] = useState<any[]>([]);
   const [apps, setApps] = useState<any[]>([]);
-  const itemsPerPage = 10;
+  const [itemsPerPage, setItemsPerPage] = useState(10);
 
   const filteredGroups = userGroupsData.filter(group =>
     group.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -202,7 +202,24 @@ export function UserGroups() {
           </Table>
 
           {totalPages > 1 && (
-            <div className="flex justify-center mt-6">
+            <div className="flex items-center justify-between mt-6">
+              <div className="flex items-center space-x-2">
+                <span className="text-sm text-muted-foreground">Registros por página:</span>
+                <Select value={itemsPerPage.toString()} onValueChange={(value) => {
+                  setItemsPerPage(Number(value));
+                  setCurrentPage(1);
+                }}>
+                  <SelectTrigger className="w-20">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="5">5</SelectItem>
+                    <SelectItem value="10">10</SelectItem>
+                    <SelectItem value="20">20</SelectItem>
+                    <SelectItem value="50">50</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
               <Pagination>
                 <PaginationContent>
                   <PaginationItem>

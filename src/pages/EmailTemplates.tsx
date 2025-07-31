@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 import { Mail, Plus, Edit, Eye, Search } from "lucide-react";
@@ -26,7 +27,7 @@ export function EmailTemplates() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [templateContent, setTemplateContent] = useState("");
   const [isClient, setIsClient] = useState(false);
-  const itemsPerPage = 10;
+  const [itemsPerPage, setItemsPerPage] = useState(10);
 
   useEffect(() => {
     setIsClient(true);
@@ -168,7 +169,24 @@ export function EmailTemplates() {
           </Table>
 
           {totalPages > 1 && (
-            <div className="flex justify-center mt-6">
+            <div className="flex items-center justify-between mt-6">
+              <div className="flex items-center space-x-2">
+                <span className="text-sm text-muted-foreground">Registros por página:</span>
+                <Select value={itemsPerPage.toString()} onValueChange={(value) => {
+                  setItemsPerPage(Number(value));
+                  setCurrentPage(1);
+                }}>
+                  <SelectTrigger className="w-20">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="5">5</SelectItem>
+                    <SelectItem value="10">10</SelectItem>
+                    <SelectItem value="20">20</SelectItem>
+                    <SelectItem value="50">50</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
               <Pagination>
                 <PaginationContent>
                   <PaginationItem>
