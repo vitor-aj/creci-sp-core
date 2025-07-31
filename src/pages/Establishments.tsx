@@ -25,8 +25,6 @@ export function Establishments() {
     { id: 6, name: "Regional São José dos Campos", icon: "", favicon: "", status: "Ativo" },
   ];
 
-  const itemsPerPageValue = 5; // Changed default to match new state
-  
   const filteredEstablishments = establishments.filter(establishment =>
     establishment.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
