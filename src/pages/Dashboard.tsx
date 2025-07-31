@@ -453,10 +453,7 @@ const Dashboard = () => {
                 <Card key={app.id} className="group cursor-pointer hover:shadow-soft transition-all duration-300 animate-fade-in">
                   <CardContent className="p-4">
                     <div className="space-y-3">
-                      <div className="flex items-center justify-between">
-                        <Monitor className="h-6 w-6 text-primary" />
 
-                      </div>
                       <div>
                         <h3 className="font-semibold text-primary group-hover:text-accent transition-colors">
                           {app.title}
