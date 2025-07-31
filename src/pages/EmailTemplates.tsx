@@ -2,12 +2,13 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
-import { Mail, Plus, Edit, Eye, Search } from "lucide-react";
+import { Mail, Plus, Edit, Eye, Search, Trash2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -23,6 +24,8 @@ export function EmailTemplates() {
   const [currentPage, setCurrentPage] = useState(1);
   const [editingTemplate, setEditingTemplate] = useState<any>(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [deletingTemplate, setDeletingTemplate] = useState<any>(null);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [templateContent, setTemplateContent] = useState("");
   const [isClient, setIsClient] = useState(false);
   const [itemsPerPage, setItemsPerPage] = useState(10);
@@ -42,6 +45,17 @@ export function EmailTemplates() {
   const handleEdit = (template: any) => {
     setEditingTemplate(template);
     setIsEditModalOpen(true);
+  };
+
+  const handleDelete = (template: any) => {
+    setDeletingTemplate(template);
+    setIsDeleteModalOpen(true);
+  };
+
+  const confirmDelete = () => {
+    console.log(`Delete template ${deletingTemplate.id}`);
+    setIsDeleteModalOpen(false);
+    setDeletingTemplate(null);
   };
 
   const modules = {
@@ -143,10 +157,13 @@ export function EmailTemplates() {
                   </TableCell>
                   <TableCell>
                     <div className="flex gap-2">
-
                       <Button variant="outline" size="sm" onClick={() => handleEdit(template)}>
                         <Edit className="h-4 w-4 mr-1" />
                         Editar
+                      </Button>
+                      <Button variant="outline" size="sm" onClick={() => handleDelete(template)}>
+                        <Trash2 className="h-4 w-4 mr-1" />
+                        Excluir
                       </Button>
                     </div>
                   </TableCell>
@@ -246,6 +263,25 @@ export function EmailTemplates() {
           </DialogContent>
         </Dialog>
       )}
+
+      {/* Delete Modal */}
+      <AlertDialog open={isDeleteModalOpen} onOpenChange={setIsDeleteModalOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Confirmar Exclusão</AlertDialogTitle>
+            <AlertDialogDescription>
+              Tem certeza que deseja excluir o template "{deletingTemplate?.name}"?
+              Esta ação não pode ser desfeita.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction onClick={confirmDelete} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+              Excluir
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

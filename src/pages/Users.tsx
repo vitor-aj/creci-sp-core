@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -24,6 +25,8 @@ export function Users() {
   const [currentPage, setCurrentPage] = useState(1);
   const [editingUser, setEditingUser] = useState<any>(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [deletingUser, setDeletingUser] = useState<any>(null);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [vinculos, setVinculos] = useState<any[]>([]);
   const [itemsPerPage, setItemsPerPage] = useState(10);
 
@@ -41,8 +44,15 @@ export function Users() {
     setIsEditModalOpen(true);
   };
 
-  const handleDelete = (id: number) => {
-    console.log(`Delete user ${id}`);
+  const handleDelete = (user: any) => {
+    setDeletingUser(user);
+    setIsDeleteModalOpen(true);
+  };
+
+  const confirmDelete = () => {
+    console.log(`Delete user ${deletingUser.id}`);
+    setIsDeleteModalOpen(false);
+    setDeletingUser(null);
   };
 
   return (
@@ -190,7 +200,7 @@ export function Users() {
                         <Edit className="h-4 w-4 mr-1" />
                         Editar
                       </Button>
-                      <Button variant="outline" size="sm" onClick={() => handleDelete(user.id)}>
+                      <Button variant="outline" size="sm" onClick={() => handleDelete(user)}>
                         <Trash2 className="h-4 w-4 mr-1" />
                         Excluir
                       </Button>
@@ -350,6 +360,25 @@ export function Users() {
           </DialogContent>
         </Dialog>
       )}
+
+      {/* Delete Modal */}
+      <AlertDialog open={isDeleteModalOpen} onOpenChange={setIsDeleteModalOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Confirmar Exclusão</AlertDialogTitle>
+            <AlertDialogDescription>
+              Tem certeza que deseja excluir o usuário "{deletingUser?.name}"?
+              Esta ação não pode ser desfeita.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction onClick={confirmDelete} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+              Excluir
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
