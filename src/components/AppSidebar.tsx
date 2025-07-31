@@ -178,7 +178,6 @@ export function AppSidebar() {
                 <>
                   <div className="flex-1 text-left ml-2">
                     <div className="text-sm font-medium text-foreground">João Silva</div>
-                    <div className="text-xs text-muted-foreground">Administrador</div>
                   </div>
                   <ChevronDown className="h-4 w-4" />
                 </>
