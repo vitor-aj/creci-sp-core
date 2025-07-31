@@ -79,7 +79,8 @@ export function Establishments() {
                 <Label htmlFor="est-icon">Ícone</Label>
                 <Input 
                   id="est-icon" 
-                  placeholder="URL do ícone"
+                  type="file"
+                  accept="image/*"
                   defaultValue={editingEstablishment?.icon || ""}
                 />
               </div>
@@ -87,7 +88,8 @@ export function Establishments() {
                 <Label htmlFor="est-favicon">Favicon</Label>
                 <Input 
                   id="est-favicon" 
-                  placeholder="URL do favicon"
+                  type="file"
+                  accept="image/*"
                   defaultValue={editingEstablishment?.favicon || ""}
                 />
               </div>
