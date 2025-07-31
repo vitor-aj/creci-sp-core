@@ -15,7 +15,6 @@ import 'react-quill/dist/quill.snow.css';
 const templatesData = Array.from({ length: 30 }, (_, i) => ({
   id: i + 1,
   name: `Template ${i + 1}`,
-  type: ["Cadastro", "Segurança", "Relatório", "Sistema"][Math.floor(Math.random() * 4)],
   active: Math.random() > 0.3,
   lastModified: `${Math.floor(Math.random() * 7) + 1} dias atrás`
 }));
@@ -129,7 +128,6 @@ export function EmailTemplates() {
               <TableRow>
                 <TableHead>ID</TableHead>
                 <TableHead>Nome</TableHead>
-                <TableHead>Tipo</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead>Última Modificação</TableHead>
                 <TableHead>Ações</TableHead>
@@ -140,11 +138,6 @@ export function EmailTemplates() {
                 <TableRow key={template.id}>
                   <TableCell>{template.id}</TableCell>
                   <TableCell>{template.name}</TableCell>
-                  <TableCell>
-                    <Badge variant="outline">
-                      {template.type}
-                    </Badge>
-                  </TableCell>
                   <TableCell>
                     <Badge variant={template.active ? "default" : "secondary"}>
                       {template.active ? "Ativo" : "Inativo"}
