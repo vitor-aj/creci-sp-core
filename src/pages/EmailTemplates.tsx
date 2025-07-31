@@ -15,8 +15,7 @@ import 'react-quill/dist/quill.snow.css';
 const templatesData = Array.from({ length: 30 }, (_, i) => ({
   id: i + 1,
   name: `Template ${i + 1}`,
-  active: Math.random() > 0.3,
-  lastModified: `${Math.floor(Math.random() * 7) + 1} dias atrás`
+  active: Math.random() > 0.3
 }));
 
 export function EmailTemplates() {
@@ -129,7 +128,6 @@ export function EmailTemplates() {
                 <TableHead>ID</TableHead>
                 <TableHead>Nome</TableHead>
                 <TableHead>Status</TableHead>
-                <TableHead>Última Modificação</TableHead>
                 <TableHead>Ações</TableHead>
               </TableRow>
             </TableHeader>
@@ -143,13 +141,9 @@ export function EmailTemplates() {
                       {template.active ? "Ativo" : "Inativo"}
                     </Badge>
                   </TableCell>
-                  <TableCell>{template.lastModified}</TableCell>
                   <TableCell>
                     <div className="flex gap-2">
-                      <Button variant="outline" size="sm">
-                        <Eye className="h-4 w-4 mr-1" />
-                        Ver
-                      </Button>
+
                       <Button variant="outline" size="sm" onClick={() => handleEdit(template)}>
                         <Edit className="h-4 w-4 mr-1" />
                         Editar
