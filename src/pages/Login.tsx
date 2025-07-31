@@ -42,12 +42,8 @@ const Login = () => {
       <div className="hidden lg:flex lg:w-1/2 bg-gradient-primary relative overflow-hidden">
         <div className="absolute inset-0 bg-primary/10" />
         <div className="relative z-10 flex flex-col justify-center px-12 text-white">
-          <div className="mb-8 flex flex-col items-center text-center">
-            <img 
-              src="/lovable-uploads/07ace6ba-4731-4f98-82f5-7818248004cb.png" 
-              alt="CRECI SP Logo" 
-              className="h-32 w-auto mb-6 object-contain"
-            />
+          <div className="mb-8">
+            <h1 className="text-4xl font-bold mb-4">CRECI SP</h1>
             <p className="text-xl text-primary-foreground/90">
               Sistema de Gerenciamento Institucional
             </p>
