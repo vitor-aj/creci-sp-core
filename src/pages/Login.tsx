@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import creciLogo from "@/assets/creci-logo.png";
+import creciLogo from "@/assets/creci-sp-logo.png";
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
