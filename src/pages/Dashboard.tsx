@@ -61,8 +61,8 @@ const Dashboard = () => {
   const stats = [
     { title: "Usuários Ativos", value: "234", icon: Users, color: "text-blue-600" },
     { title: "Aplicativos", value: "12", icon: Monitor, color: "text-green-600" },
-    { title: "Estabelecimentos", value: "8", icon: Building, color: "text-purple-600" },
     { title: "Módulos", value: "24", icon: Database, color: "text-orange-600" },
+    { title: "Estabelecimentos", value: "8", icon: Building, color: "text-purple-600" },
   ];
 
   const availableApps = [
