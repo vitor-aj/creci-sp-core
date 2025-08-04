@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import creciLogo from "@/assets/creci-logo.png";
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
@@ -38,28 +39,46 @@ const Login = () => {
       {/* Left Side - Branding */}
       <div className="hidden lg:flex lg:w-1/2 bg-gradient-primary relative overflow-hidden">
         <div className="absolute inset-0 bg-primary/10" />
-        <div className="relative z-10 flex flex-col justify-center px-12 text-white">
+        <div className="relative z-10 flex flex-col justify-center items-center px-12 text-white text-center">
           <div className="mb-8">
-            <h1 className="text-4xl font-bold mb-4">CRECI SP - CORE</h1>
-            
+            <img 
+              src={creciLogo} 
+              alt="CRECI SP Logo" 
+              className="w-48 h-auto mb-6 mx-auto filter brightness-0 invert"
+            />
+            <h1 className="text-5xl font-bold mb-4 tracking-wide">CORE</h1>
+            <div className="w-16 h-1 bg-white mx-auto mb-4 rounded-full"></div>
+            <p className="text-xl font-light mb-2 text-white/90">
+              Plataforma Integrada
+            </p>
+            <p className="text-lg text-white/80 leading-relaxed max-w-md">
+              Sistema unificado que conecta e gerencia todos os sistemas do CRECI-SP em uma única plataforma moderna e eficiente.
+            </p>
           </div>
-          
         </div>
         
-        {/* Geometric decoration */}
-        <div className="absolute top-20 right-20 w-32 h-32 border border-primary-foreground/20 rounded-full" />
-        <div className="absolute bottom-32 right-32 w-24 h-24 border border-primary-foreground/30 rounded-full" />
+        {/* Modern geometric decoration */}
+        <div className="absolute top-10 right-10 w-32 h-32 border-2 border-white/10 rounded-3xl rotate-12" />
+        <div className="absolute bottom-20 right-20 w-24 h-24 border-2 border-white/20 rounded-2xl -rotate-12" />
+        <div className="absolute top-1/2 left-10 w-16 h-16 border-2 border-white/15 rounded-full" />
       </div>
 
       {/* Right Side - Login Form */}
       <div className="flex-1 flex items-center justify-center bg-gradient-subtle p-6">
-        <Card className="w-full max-w-md shadow-large">
-          <CardHeader className="text-center">
-            <CardTitle className="text-2xl font-bold text-primary">
-              Bem-vindo de volta
+        <Card className="w-full max-w-md shadow-large border-0 bg-card/95 backdrop-blur-sm">
+          <CardHeader className="text-center pb-8">
+            <div className="flex justify-center mb-4">
+              <img 
+                src={creciLogo} 
+                alt="CRECI SP Logo" 
+                className="w-20 h-auto"
+              />
+            </div>
+            <CardTitle className="text-3xl font-bold text-primary mb-2">
+              Bem-vindo ao CORE
             </CardTitle>
-            <CardDescription>
-              Entre com suas credenciais para acessar o sistema
+            <CardDescription className="text-base text-muted-foreground">
+              Acesse a plataforma integrada do CRECI-SP
             </CardDescription>
           </CardHeader>
           <CardContent>
