@@ -32,8 +32,8 @@ const ForgotPassword = () => {
         description: "As instruções para recuperação da senha foram enviadas para seu e-mail."
       });
       // Redirecionar para página de verificação
-      window.location.href = `/verify-code?email=${encodeURIComponent(email)}`;
-    }, 1500);
+      window.location.href = `/reset-password`;
+    }, 3000);
   };
   return <div className="min-h-screen flex items-center justify-center bg-gradient-subtle p-6">
       <Card className="w-full max-w-md shadow-large">
