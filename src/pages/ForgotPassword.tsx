@@ -28,8 +28,8 @@ const ForgotPassword = () => {
     setTimeout(() => {
       setIsLoading(false);
       toast({
-        title: "Código enviado",
-        description: "Um código de verificação foi enviado para seu e-mail."
+        title: "E-mail enviado",
+        description: "As instruções para recuperação da senha foram enviadas para seu e-mail."
       });
       // Redirecionar para página de verificação
       window.location.href = `/verify-code?email=${encodeURIComponent(email)}`;
