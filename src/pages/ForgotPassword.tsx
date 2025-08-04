@@ -54,7 +54,7 @@ const ForgotPassword = () => {
             </div>
 
             <Button type="submit" variant="gradient" className="w-full" disabled={isLoading}>
-              {isLoading ? "Enviando..." : "Enviar código"}
+              {isLoading ? "Enviando..." : "Enviar"}
             </Button>
 
             <div className="text-center">
