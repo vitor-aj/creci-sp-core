@@ -42,7 +42,7 @@ const Login = () => {
           <div className="flex justify-center mb-8">
             <img src={creciLogo} alt="CRECI SP Logo" className="w-32 h-auto" />
           </div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-3 tracking-tight">CRECI CORE</h1>
+          
           <div className="w-16 h-1 bg-primary mx-auto mb-4 rounded-full" />
           <p className="text-lg text-gray-600 font-light">
             Plataforma Integrada CRECI-SP
