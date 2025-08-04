@@ -40,11 +40,7 @@ const Login = () => {
         {/* Logo and Title */}
         <div className="text-center mb-12">
           <div className="flex justify-center mb-8">
-            <img 
-              src={creciLogo} 
-              alt="CRECI SP Logo" 
-              className="w-32 h-auto"
-            />
+            <img src={creciLogo} alt="CRECI SP Logo" className="w-32 h-auto" />
           </div>
           <h1 className="text-4xl font-bold text-gray-900 mb-3 tracking-tight">
             CORE
@@ -73,15 +69,7 @@ const Login = () => {
                 </Label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                  <Input 
-                    id="email" 
-                    type="email" 
-                    placeholder="seu@email.com" 
-                    value={email} 
-                    onChange={e => setEmail(e.target.value)} 
-                    className="pl-10 h-12 text-base border-gray-200 bg-gray-50 focus:bg-white focus:border-primary transition-all duration-200" 
-                    required 
-                  />
+                  <Input id="email" type="email" placeholder="seu@email.com" value={email} onChange={e => setEmail(e.target.value)} className="pl-10 h-12 text-base border-gray-200 bg-gray-50 focus:bg-white focus:border-primary transition-all duration-200" required />
                 </div>
               </div>
 
@@ -91,39 +79,20 @@ const Login = () => {
                 </Label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                  <Input 
-                    id="password" 
-                    type={showPassword ? "text" : "password"} 
-                    placeholder="Digite sua senha" 
-                    value={password} 
-                    onChange={e => setPassword(e.target.value)} 
-                    className="pl-10 pr-10 h-12 text-base border-gray-200 bg-gray-50 focus:bg-white focus:border-primary transition-all duration-200" 
-                    required 
-                  />
-                  <button 
-                    type="button" 
-                    onClick={() => setShowPassword(!showPassword)} 
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
-                  >
+                  <Input id="password" type={showPassword ? "text" : "password"} placeholder="Digite sua senha" value={password} onChange={e => setPassword(e.target.value)} className="pl-10 pr-10 h-12 text-base border-gray-200 bg-gray-50 focus:bg-white focus:border-primary transition-all duration-200" required />
+                  <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors">
                     {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                   </button>
                 </div>
               </div>
 
               <div className="flex items-center justify-end">
-                <a 
-                  href="/forgot-password" 
-                  className="text-sm text-primary hover:text-primary/80 transition-colors font-medium"
-                >
+                <a href="/forgot-password" className="text-sm text-primary hover:text-primary/80 transition-colors font-medium">
                   Esqueci minha senha
                 </a>
               </div>
 
-              <Button 
-                type="submit" 
-                className="w-full h-12 text-base font-semibold bg-primary hover:bg-primary/90 text-white transition-all duration-200 shadow-lg hover:shadow-xl" 
-                disabled={isLoading}
-              >
+              <Button type="submit" className="w-full h-12 text-base font-semibold bg-primary hover:bg-primary/90 text-white transition-all duration-200 shadow-lg hover:shadow-xl" disabled={isLoading}>
                 {isLoading ? "Entrando..." : "Entrar no CORE"}
               </Button>
             </form>
@@ -132,9 +101,7 @@ const Login = () => {
 
         {/* Footer */}
         <div className="text-center mt-8">
-          <p className="text-sm text-gray-400">
-            © 2024 CRECI-SP. Todos os direitos reservados.
-          </p>
+          <p className="text-sm text-gray-400">© 2025 CRECI-SP. Todos os direitos reservados.</p>
         </div>
       </div>
     </div>;
