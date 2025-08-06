@@ -177,6 +177,47 @@ export function Systems() {
           )}
         </CardContent>
       </Card>
+
+      <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Editar Sistema</DialogTitle>
+            <DialogDescription>
+              Atualize as informações do sistema
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="grid gap-2">
+              <Label htmlFor="edit-system-name">Nome do sistema</Label>
+              <Input 
+                id="edit-system-name" 
+                placeholder="Digite o nome do sistema"
+                defaultValue={editingSystem?.name || ""}
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="edit-system-status">Status</Label>
+              <Select defaultValue={editingSystem?.status === "Ativo" ? "ativo" : "inativo"}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Selecione o status" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="ativo">Ativo</SelectItem>
+                  <SelectItem value="inativo">Inativo</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="flex justify-end gap-2 pt-4">
+              <Button variant="outline" onClick={() => setIsEditModalOpen(false)}>
+                Cancelar
+              </Button>
+              <Button onClick={() => setIsEditModalOpen(false)}>
+                Salvar
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
