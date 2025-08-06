@@ -52,22 +52,11 @@ export function Profile() {
           <h1 className="text-3xl font-bold text-foreground">Minha Conta</h1>
           <p className="text-muted-foreground">Gerencie suas informações pessoais</p>
         </div>
-        {!isEditing ? (
+        {!isEditing && (
           <Button onClick={() => setIsEditing(true)}>
             <Edit className="h-4 w-4 mr-2" />
             Editar Perfil
           </Button>
-        ) : (
-          <div className="flex space-x-2">
-            <Button onClick={handleSave}>
-              <Save className="h-4 w-4 mr-2" />
-              Salvar
-            </Button>
-            <Button variant="outline" onClick={handleCancel}>
-              <X className="h-4 w-4 mr-2" />
-              Cancelar
-            </Button>
-          </div>
         )}
       </div>
 
@@ -198,6 +187,20 @@ export function Profile() {
               </div>
             </CardContent>
           </Card>
+        )}
+
+        {/* Action Buttons */}
+        {isEditing && (
+          <div className="flex justify-end space-x-2 pt-4">
+            <Button variant="outline" onClick={handleCancel}>
+              <X className="h-4 w-4 mr-2" />
+              Cancelar
+            </Button>
+            <Button onClick={handleSave}>
+              <Save className="h-4 w-4 mr-2" />
+              Salvar
+            </Button>
+          </div>
         )}
       </div>
     </div>
