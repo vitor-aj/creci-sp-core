@@ -29,6 +29,7 @@ export function Users() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [vinculos, setVinculos] = useState<any[]>([]);
   const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [isNewVinculoModalOpen, setIsNewVinculoModalOpen] = useState(false);
 
   const filteredUsers = usersData.filter(user =>
     user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -126,7 +127,60 @@ export function Users() {
                 </div>
               </TabsContent>
               <TabsContent value="vinculos" className="mt-4 grid gap-4">
-                <Button>Novo vínculo</Button>
+                <Dialog open={isNewVinculoModalOpen} onOpenChange={setIsNewVinculoModalOpen}>
+                  <DialogTrigger asChild>
+                    <Button>
+                      <Plus className="h-4 w-4 mr-2" />
+                      Novo vínculo
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>Novo Vínculo</DialogTitle>
+                      <DialogDescription>Adicione um novo vínculo para o usuário</DialogDescription>
+                    </DialogHeader>
+                    <div className="grid gap-4 py-4">
+                      <div className="grid gap-2">
+                        <Label htmlFor="estabelecimento">Estabelecimento</Label>
+                        <Select>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Selecione o estabelecimento" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="estabelecimento1">Estabelecimento 1</SelectItem>
+                            <SelectItem value="estabelecimento2">Estabelecimento 2</SelectItem>
+                            <SelectItem value="estabelecimento3">Estabelecimento 3</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div className="grid gap-2">
+                        <Label htmlFor="nivel-acesso">Nível de acesso</Label>
+                        <Select>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Selecione o nível de acesso" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="administrador">Administrador</SelectItem>
+                            <SelectItem value="interno">Interno</SelectItem>
+                            <SelectItem value="externo">Externo</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div className="grid gap-2">
+                        <Label htmlFor="telegram-id">ID do Telegram</Label>
+                        <Input id="telegram-id" placeholder="Digite o ID do Telegram" />
+                      </div>
+                    </div>
+                    <div className="flex justify-end gap-2">
+                      <Button variant="outline" onClick={() => setIsNewVinculoModalOpen(false)}>
+                        Cancelar
+                      </Button>
+                      <Button onClick={() => setIsNewVinculoModalOpen(false)}>
+                        Salvar
+                      </Button>
+                    </div>
+                  </DialogContent>
+                </Dialog>
                 <Table>
                   <TableHeader>
                     <TableRow>
@@ -339,7 +393,60 @@ export function Users() {
                 </div>
               </TabsContent>
               <TabsContent value="vinculos" className="mt-4 grid gap-4">
-                <Button>Novo vínculo</Button>
+                <Dialog open={isNewVinculoModalOpen} onOpenChange={setIsNewVinculoModalOpen}>
+                  <DialogTrigger asChild>
+                    <Button>
+                      <Plus className="h-4 w-4 mr-2" />
+                      Novo vínculo
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>Novo Vínculo</DialogTitle>
+                      <DialogDescription>Adicione um novo vínculo para o usuário</DialogDescription>
+                    </DialogHeader>
+                    <div className="grid gap-4 py-4">
+                      <div className="grid gap-2">
+                        <Label htmlFor="estabelecimento">Estabelecimento</Label>
+                        <Select>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Selecione o estabelecimento" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="estabelecimento1">Estabelecimento 1</SelectItem>
+                            <SelectItem value="estabelecimento2">Estabelecimento 2</SelectItem>
+                            <SelectItem value="estabelecimento3">Estabelecimento 3</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div className="grid gap-2">
+                        <Label htmlFor="nivel-acesso">Nível de acesso</Label>
+                        <Select>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Selecione o nível de acesso" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="administrador">Administrador</SelectItem>
+                            <SelectItem value="interno">Interno</SelectItem>
+                            <SelectItem value="externo">Externo</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div className="grid gap-2">
+                        <Label htmlFor="telegram-id">ID do Telegram</Label>
+                        <Input id="telegram-id" placeholder="Digite o ID do Telegram" />
+                      </div>
+                    </div>
+                    <div className="flex justify-end gap-2">
+                      <Button variant="outline" onClick={() => setIsNewVinculoModalOpen(false)}>
+                        Cancelar
+                      </Button>
+                      <Button onClick={() => setIsNewVinculoModalOpen(false)}>
+                        Salvar
+                      </Button>
+                    </div>
+                  </DialogContent>
+                </Dialog>
                 <Table>
                   <TableHeader>
                     <TableRow>
