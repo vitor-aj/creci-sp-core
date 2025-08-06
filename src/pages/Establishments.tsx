@@ -165,10 +165,10 @@ export function Establishments() {
         </Table>
       </div>
 
-      {totalPages > 1 && (
-        <div className="flex items-center justify-between mt-6">
+      <div className="flex items-center justify-between mt-6">
+        <div className="flex items-center space-x-4">
           <div className="flex items-center space-x-2">
-            <span className="text-sm text-muted-foreground">Registros por página:</span>
+            <span className="text-sm text-muted-foreground">Itens por página:</span>
             <Select value={itemsPerPage.toString()} onValueChange={(value) => {
               setItemsPerPage(Number(value));
               setCurrentPage(1);
@@ -184,6 +184,12 @@ export function Establishments() {
               </SelectContent>
             </Select>
           </div>
+          <div className="text-sm text-muted-foreground">
+            Mostrando {startIndex + 1} a {Math.min(startIndex + itemsPerPage, filteredEstablishments.length)} de {filteredEstablishments.length} estabelecimentos
+          </div>
+        </div>
+        
+        {totalPages > 1 && (
           <Pagination>
             <PaginationContent>
               <PaginationItem>
@@ -211,8 +217,8 @@ export function Establishments() {
               </PaginationItem>
             </PaginationContent>
           </Pagination>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }
