@@ -154,7 +154,7 @@ export function Applications() {
                 </div>
               </TabsContent>
               <TabsContent value="establishments" className="grid gap-4 mt-4">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+                <div className="grid grid-cols-1 gap-4 items-end">
                   <div className="grid gap-2">
                     <Label>Estabelecimento</Label>
                     <Select>
