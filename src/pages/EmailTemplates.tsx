@@ -100,6 +100,18 @@ export function EmailTemplates() {
                 <Input id="template-name" placeholder="Digite o nome do template" />
               </div>
               <div className="grid gap-2">
+                <Label htmlFor="template-status">Status</Label>
+                <Select defaultValue="ativo">
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecione o status" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="ativo">Ativo</SelectItem>
+                    <SelectItem value="inativo">Inativo</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="grid gap-2">
                 <Label htmlFor="template-content">Conteúdo do e-mail</Label>
                 {isClient && (
                   <ReactQuill 
@@ -240,6 +252,18 @@ export function EmailTemplates() {
               <div className="grid gap-2">
                 <Label htmlFor="edit-template-name">Nome do template</Label>
                 <Input id="edit-template-name" defaultValue={editingTemplate.name} />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="edit-template-status">Status</Label>
+                <Select defaultValue={editingTemplate.active ? "ativo" : "inativo"}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecione o status" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="ativo">Ativo</SelectItem>
+                    <SelectItem value="inativo">Inativo</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="edit-template-content">Conteúdo do e-mail</Label>
