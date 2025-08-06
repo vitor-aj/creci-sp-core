@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { User, Edit, Save, X, Upload } from "lucide-react";
+import { User, Edit, Save, X, Upload, Lock } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 export function Profile() {
@@ -20,6 +20,11 @@ export function Profile() {
   });
 
   const [editedProfile, setEditedProfile] = useState(profile);
+  const [passwordData, setPasswordData] = useState({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: ""
+  });
 
   const handleSave = () => {
     setProfile(editedProfile);
@@ -32,6 +37,11 @@ export function Profile() {
 
   const handleCancel = () => {
     setEditedProfile(profile);
+    setPasswordData({
+      currentPassword: "",
+      newPassword: "",
+      confirmPassword: ""
+    });
     setIsEditing(false);
   };
 
@@ -143,6 +153,52 @@ export function Profile() {
           
           </CardContent>
         </Card>
+
+        {/* Password Change Section */}
+        {isEditing && (
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2">
+                <Lock className="h-5 w-5 text-primary" />
+                <span>Alterar Senha</span>
+              </CardTitle>
+              <CardDescription>
+                Altere sua senha de acesso
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="currentPassword">Senha Atual</Label>
+                <Input
+                  id="currentPassword"
+                  type="password"
+                  value={passwordData.currentPassword}
+                  onChange={(e) => setPasswordData({ ...passwordData, currentPassword: e.target.value })}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="newPassword">Nova Senha</Label>
+                <Input
+                  id="newPassword"
+                  type="password"
+                  value={passwordData.newPassword}
+                  onChange={(e) => setPasswordData({ ...passwordData, newPassword: e.target.value })}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="confirmPassword">Confirme a Nova Senha</Label>
+                <Input
+                  id="confirmPassword"
+                  type="password"
+                  value={passwordData.confirmPassword}
+                  onChange={(e) => setPasswordData({ ...passwordData, confirmPassword: e.target.value })}
+                />
+              </div>
+            </CardContent>
+          </Card>
+        )}
       </div>
     </div>
   );
