@@ -69,6 +69,13 @@ export default {
 					'primary-lighter': 'hsl(var(--creci-primary-lighter))',
 					accent: 'hsl(var(--creci-accent))'
 				},
+				// HGTX University Brand Colors
+				hgtx: {
+					dark: 'hsl(var(--hgtx-dark))',
+					medium: 'hsl(var(--hgtx-medium))',
+					lime: 'hsl(var(--hgtx-lime))',
+					'lime-hover': 'hsl(var(--hgtx-lime-hover))'
+				},
 				neutral: {
 					50: 'hsl(var(--neutral-50))',
 					100: 'hsl(var(--neutral-100))',
