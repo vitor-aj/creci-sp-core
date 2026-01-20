@@ -189,7 +189,7 @@ const Dashboard = () => {
                 </Button>
                 <Button 
                   variant="outline" 
-                  className="border-hgtx-lime text-hgtx-lime bg-transparent hover:opacity-70 transition-opacity"
+                  className="border-hgtx-lime text-hgtx-lime hover:bg-hgtx-lime/10"
                   onClick={() => window.open('https://university.hgtx.com.br', '_blank')}
                 >
                   <ExternalLink className="h-4 w-4 mr-2" />
