@@ -182,7 +182,7 @@ const Dashboard = () => {
               <div className="flex flex-wrap gap-3 justify-center md:justify-start">
                 <Button 
                   className="bg-hgtx-lime hover:bg-hgtx-lime-hover text-hgtx-dark font-semibold"
-                  onClick={() => window.open('https://university.hgtx.com.br', '_blank')}
+                  onClick={() => window.open('https://university.hgtx.ia.br/m/courses', '_blank')}
                 >
                   <Play className="h-4 w-4 mr-2" />
                   Acessar Treinamentos
