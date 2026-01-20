@@ -187,14 +187,6 @@ const Dashboard = () => {
                   <Play className="h-4 w-4 mr-2" />
                   Acessar Treinamentos
                 </Button>
-                <Button 
-                  variant="outline" 
-                  className="border-hgtx-lime text-hgtx-lime hover:bg-hgtx-lime/10"
-                  onClick={() => window.open('https://university.hgtx.com.br', '_blank')}
-                >
-                  <ExternalLink className="h-4 w-4 mr-2" />
-                  Saiba Mais
-                </Button>
               </div>
             </div>
             <div className="hidden lg:flex items-center gap-4 text-neutral-400">
