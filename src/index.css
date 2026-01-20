@@ -12,6 +12,12 @@
     --creci-primary-lighter: 210 60% 85%; /* Azul claro */
     --creci-accent: 210 90% 25%;          /* Azul de destaque */
     
+    /* HGTX University Brand Colors */
+    --hgtx-dark: 210 60% 20%;             /* Azul escuro HGTX */
+    --hgtx-medium: 210 50% 30%;           /* Azul médio HGTX */
+    --hgtx-lime: 76 75% 55%;              /* Verde lima HGTX */
+    --hgtx-lime-hover: 76 70% 50%;        /* Verde lima hover */
+    
     /* Grayscale Palette */
     --neutral-50: 210 20% 98%;
     --neutral-100: 210 15% 95%;

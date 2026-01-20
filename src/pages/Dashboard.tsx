@@ -19,8 +19,12 @@ import {
   Filter,
   ChevronLeft,
   ChevronRight,
-  X
+  X,
+  GraduationCap,
+  Play,
+  ExternalLink
 } from "lucide-react";
+import hgtxUniversityLogo from "@/assets/hgtx-university-logo.png";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -154,6 +158,59 @@ const Dashboard = () => {
           </Card>
         ))}
       </div>
+
+      {/* HGTX University Card */}
+      <Card className="shadow-soft overflow-hidden border-0 bg-gradient-to-r from-hgtx-dark to-hgtx-medium">
+        <CardContent className="p-0">
+          <div className="flex flex-col md:flex-row items-center gap-6 p-6">
+            <div className="flex-shrink-0">
+              <img 
+                src={hgtxUniversityLogo} 
+                alt="HGTX University" 
+                className="h-20 w-auto"
+              />
+            </div>
+            <div className="flex-1 text-center md:text-left">
+              <h3 className="text-xl font-bold text-white mb-2 flex items-center justify-center md:justify-start gap-2">
+                <GraduationCap className="h-5 w-5 text-hgtx-lime" />
+                HGTX University
+              </h3>
+              <p className="text-neutral-300 mb-4">
+                Acesse vídeos tutoriais e treinamentos sobre como utilizar os aplicativos e módulos do sistema. 
+                Aprenda na prática com conteúdos exclusivos.
+              </p>
+              <div className="flex flex-wrap gap-3 justify-center md:justify-start">
+                <Button 
+                  className="bg-hgtx-lime hover:bg-hgtx-lime-hover text-hgtx-dark font-semibold"
+                  onClick={() => window.open('https://university.hgtx.com.br', '_blank')}
+                >
+                  <Play className="h-4 w-4 mr-2" />
+                  Acessar Treinamentos
+                </Button>
+                <Button 
+                  variant="outline" 
+                  className="border-hgtx-lime text-hgtx-lime hover:bg-hgtx-lime/10"
+                  onClick={() => window.open('https://university.hgtx.com.br', '_blank')}
+                >
+                  <ExternalLink className="h-4 w-4 mr-2" />
+                  Saiba Mais
+                </Button>
+              </div>
+            </div>
+            <div className="hidden lg:flex items-center gap-4 text-neutral-400">
+              <div className="text-center">
+                <p className="text-2xl font-bold text-hgtx-lime">50+</p>
+                <p className="text-xs">Vídeos</p>
+              </div>
+              <div className="w-px h-10 bg-neutral-600"></div>
+              <div className="text-center">
+                <p className="text-2xl font-bold text-hgtx-lime">10+</p>
+                <p className="text-xs">Módulos</p>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Quick Access with Carousel */}
       <Card className="shadow-soft">
